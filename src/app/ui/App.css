@@ -1,0 +1,22 @@
+body, html {
+  background-color: #EEE;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.app {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+}
+
+.app__pane {
+  flex: 1;
+}
