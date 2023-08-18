@@ -38,6 +38,8 @@ export default memo(function Chat({ activity }: Props) {
     activity && ready && directLine.emulateIncomingActivity(activity);
   }, [activity, directLine, ready]);
 
+  // Commented out for now... if we need to use activity middleware, instead of attachment middleware, here is the code.
+  // Note the activity middleware will render the timestamp, thus, the reference links will be shown *below* the timestamp, which may not be desirable.
   // const activityMiddleware = useMemo<ActivityMiddleware>(() => {
   //   return () =>
   //     next =>
