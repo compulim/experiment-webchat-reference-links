@@ -16,15 +16,26 @@ type SetActivityJSONCallback = (activityJSON: string) => void;
 const DEFAULT_STATE: State = {
   activityJSON: JSON.stringify(
     {
+      conversation: { id: 'c-00001' },
+      from: { id: 'bot', provenance: '[Surfaced by Azure OpenAI](https://microsoft.com/...)' },
+      type: 'message',
+      text: 'Sure, you should override the default proxy settings([1])[ref-1]([2])[ref-2], when your proxy server requires authentication([3])[cite-1].\n\n[ref-1]: https://...microsoft.com/ "Page title"\n[ref-2]: https://microsoft.com/ "Page title"\n[cite-1]: x-pva-citation:cite-a "Introduction Configuring proxy..."',
       entities: [
         {
-          type: 'https://schema.org/CreativeWork',
           '@context': 'https://schema.org/',
-          '@type': 'CreativeWork'
+          '@id': 'x-pva-citation:cite-a',
+          '@type': 'Claim',
+          text: '## Introduction\n\nConfiguring proxy settings is a fundamental aspect of network and system administration.\n\n## Understandingi Proxy Auto-Discovery (PAD)\n\nProxy Auto-Discovery, often abbreviated as PAD, is a mechanism that simplifies the process of configuring proxy settings for network-connected devices.',
+          type: 'https://schema.org/Claim'
+        },
+        {
+          type: '...',
+          text: 'Surfaced by Azure OpenAI',
+          url: 'https://microsoft.com/...'
         }
       ],
-      text: 'Hello, World!',
-      type: 'message'
+      'footnote:text': 'Surfaced by Azure OpenAI',
+      'footnote:url': 'https://microsoft.com/...'
     },
     null,
     2
