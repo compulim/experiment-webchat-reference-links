@@ -16,5 +16,15 @@ export default memo(function ActivityInput({ onChange, value }: Props) {
     [onChangeRef]
   );
 
-  return <textarea className="activity-input" onChange={handleChange} value={value} />;
+  return (
+    <textarea
+      autoCapitalize="false"
+      autoComplete="false"
+      autoCorrect="false"
+      className="activity-input"
+      onChange={handleChange}
+      spellCheck={false}
+      value={value}
+    />
+  );
 });
