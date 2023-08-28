@@ -38,23 +38,9 @@ function isClaim(entity: undefined | WebChatEntity | SchemaOrgEntity): entity is
   return entity?.type === 'https://schema.org/Claim';
 }
 
-// const mdLinkRegex = /\[(?<linkText>\S+?)\]\((?<linkUrl>\S+?)\)/g;
-
-// function isReference(entity: { [key: string]: any }) {
-//   return entity['@id'].startsWith('x-pva-citation');
-// }
-
 export default memo(function AttachmentWithReferences({ activity, children }: Props) {
   const entities = activity.entities as Array<SchemaOrgEntity | WebChatEntity> | undefined;
   const { text } = activity;
-
-  // const links = text == null ? [] : [...text.matchAll(mdLinkRegex)].map(match => match.groups);
-  // console.log('>>', links);
-
-  // const references = entities?.filter(isReference);
-  // const referenceText = references == null ? {} : Object.fromEntries(references.map(ref => [ref['@id'], ref.text]));
-
-  // console.log('rtext >>', referenceText);
 
   if (activity.textFormat && activity.textFormat !== 'markdown') {
     return children;
