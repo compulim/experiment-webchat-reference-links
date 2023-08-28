@@ -83,10 +83,10 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
   return (
     <Fragment>
       {children}
-      <details>
+      {references.length && <details>
         <summary className={'refList'}>{references.length} references.</summary>
-        {references.length && <References references={references} />}
-      </details>
+        <References references={references} />
+      </details>}
     </Fragment>
   );
 });
