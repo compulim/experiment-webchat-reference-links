@@ -2,7 +2,8 @@ import { memo } from 'react';
 
 type Reference = {
   title: string;
-  url: string;
+  url?: string;
+  text: string;
 };
 
 type Props = {
