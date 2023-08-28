@@ -2,7 +2,12 @@ export default {
   conversation: { id: 'c-00001' },
   from: { id: 'bot' },
   type: 'message',
-  text: 'Sure, you should override the default proxy settings[[1]](ref-1)[[2]](ref-2), when your proxy server requires authentication[[3]](cite-1).\n\n[ref-1]: https://...microsoft.com/ "Page title"\n[ref-2]: https://microsoft.com/ "Page title"\n[cite-1]: x-pva-citation:cite-a "Introduction Configuring proxy..."',
+  text: `Sure, you should override the default proxy settings[[1]][ref-1][[2]][ref-2], when your proxy server requires authentication[[3]][cite-1].
+
+  [ref-1]: https://...microsoft.com/ "Page title"
+  [ref-2]: https://microsoft.com/ "Page title"
+  [cite-1]: x-pva-citation:cite-a "Introduction Configuring proxy..."
+  `,
   entities: [
     {
       '@context': 'https://schema.org/',

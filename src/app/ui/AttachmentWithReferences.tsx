@@ -2,10 +2,11 @@ import './AttachmentWithReferences.css';
 
 import { Fragment, memo, useMemo, type PropsWithChildren } from 'react';
 
+import getLinksFromMarkdown from '../utils/getLinksFromMarkdown';
 import References from './References';
 
+import type { PropsOf } from '../types/PropsOf';
 import type { WebChatActivity } from 'botframework-webchat-core';
-import { PropsOf } from '../types/PropsOf';
 
 type SchemaOrgEntity = SchemaOrgClaim;
 type WebChatEntity = ItemTypeOfArray<Exclude<WebChatActivity['entities'], undefined>>;
@@ -46,24 +47,21 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
     return children;
   }
 
+  const links = useMemo(() => Object.freeze(text ? Array.from(getLinksFromMarkdown(text)) : []), [text]);
+
   const references = useMemo<ReadonlyArray<Reference>>(() => {
     if (!entities) {
       return Object.freeze([]);
     }
 
     return Object.freeze([
-      {
-        // TODO: Hardcoded, need to parse from Markdown OM.
-        id: 'ref-1',
-        title: 'Bing',
-        url: 'https://bing.com/'
-      },
-      {
-        // TODO: Hardcoded, need to parse from Markdown OM.
-        id: 'ref-2',
-        title: 'Microsoft',
-        url: 'https://microsoft.com/'
-      },
+      ...links
+        .filter(({ url }) => !url.startsWith('x-pva-citation:'))
+        .map(link => ({
+          id: 'xxx',
+          title: 'Hello, World!',
+          url: link.url
+        })),
       ...entities.reduce<Array<Reference>>(
         (references: Array<Reference>, entity: SchemaOrgEntity | WebChatEntity): Array<Reference> => {
           if (isClaim(entity)) {
@@ -83,10 +81,12 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
   return (
     <Fragment>
       {children}
-      {references.length && <details>
-        <summary className={'refList'}>{references.length} references.</summary>
-        <References references={references} />
-      </details>}
+      {references.length && (
+        <details>
+          <summary className={'refList'}>{references.length} references.</summary>
+          <References references={references} />
+        </details>
+      )}
     </Fragment>
   );
 });
