@@ -1,13 +1,14 @@
 import { memo } from 'react';
 
 type Reference = {
+  id: string;
+  text?: string;
   title: string;
   url?: string;
-  text: string;
 };
 
 type Props = {
-  references: Array<Reference>;
+  references: ReadonlyArray<Reference>;
 };
 
 export default memo(({ references }: Props) => {
