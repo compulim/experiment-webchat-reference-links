@@ -29,8 +29,10 @@ export default memo(function AttachmentWithReferences({ activity: { text, entiti
   return (
     <Fragment>
       {children}
-      <div className={'refList'}>{links?.length} references.</div>
-      {entities && <pre>{JSON.stringify(references, null, 2)}</pre>}
+      <details>
+        <summary className={'refList'}>{links?.length} references.</summary>
+        {entities && <pre>{JSON.stringify(references, null, 2)}</pre>}
+      </details>
     </Fragment>
   );
 });
