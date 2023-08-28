@@ -1,3 +1,5 @@
+import './References.css';
+
 import { memo } from 'react';
 
 type Reference = {
