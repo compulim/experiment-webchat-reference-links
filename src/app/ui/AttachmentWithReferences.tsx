@@ -5,8 +5,8 @@ import { Fragment, memo, useMemo, type PropsWithChildren, useCallback } from 're
 import getLinksFromMarkdown from '../utils/getLinksFromMarkdown';
 import References from './References';
 
-import { type Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
-import { type Entity as SchemaOrgEntity } from '../types/SchemaOrg/Entity';
+import { isClaim, type Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
+import { isEntity, type Entity as SchemaOrgEntity } from '../types/SchemaOrg/Entity';
 
 import type { ItemTypeOfArray } from '../types/ItemTypeOfArray';
 import type { PropsOf } from '../types/PropsOf';
@@ -18,12 +18,8 @@ type Props = PropsWithChildren<{
   activity: WebChatActivity & { type: 'message' };
 }>;
 
-function isClaim(entity: undefined | WebChatEntity | SchemaOrgEntity): entity is SchemaOrgClaim {
-  return entity?.type === 'https://schema.org/Claim';
-}
-
 export default memo(function AttachmentWithReferences({ activity, children }: Props) {
-  const entities = activity.entities as Array<SchemaOrgEntity | WebChatEntity> | undefined;
+  const entities = (activity.entities || []) as Array<SchemaOrgEntity | WebChatEntity>;
   const { text } = activity;
 
   if (activity.textFormat && activity.textFormat !== 'markdown') {
@@ -32,8 +28,9 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
 
   const claimMap = useMemo<Map<string, SchemaOrgClaim>>(
     () =>
-      (entities || []).reduce<Map<string, SchemaOrgClaim>>(
-        (citationMap, entity) => (isClaim(entity) ? citationMap.set(entity['@id'], entity) : citationMap),
+      entities.reduce<Map<string, SchemaOrgClaim>>(
+        (citationMap, entity) =>
+          isEntity(entity) && isClaim(entity) && entity['@id'] ? citationMap.set(entity['@id'], entity) : citationMap,
         new Map()
       ),
     [entities]
