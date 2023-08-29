@@ -49,8 +49,8 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
     <Fragment>
       {children}
       {references.length && (
-        <details className="ref-list">
-          <summary className="ref-list__summary">{references.length} references.</summary>
+        <details open className="ref-list">
+          <summary className="ref-list__summary">{references.length} references</summary>
           <References onCitationClick={handleCitationClick} references={references} />
         </details>
       )}
