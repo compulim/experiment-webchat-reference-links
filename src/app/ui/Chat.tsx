@@ -68,10 +68,16 @@ export default memo(function Chat({ activity }: Props) {
 
         const activity = args[0]?.activity;
 
+        // When should we use the middleware with a new/tweaked Markdown engine?
+        // - Must be a message from bot
+        // - Must be a Markdown message
+        // - Must be a generative answer (i.e. check bot entity)
         if (
-          activity?.from.role === 'bot' &&
-          activity?.type === 'message' &&
-          (!activity.textFormat || activity.textFormat === 'markdown')
+          activity &&
+          activity.from.role === 'bot' &&
+          activity.type === 'message' &&
+          (!activity.textFormat || activity.textFormat === 'markdown') &&
+          activity.entities?.find(entity => '@context' in entity)
         ) {
           return <AttachmentWithReferences activity={activity}>{original}</AttachmentWithReferences>;
         }
