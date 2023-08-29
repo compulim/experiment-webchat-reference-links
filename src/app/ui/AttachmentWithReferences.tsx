@@ -1,6 +1,6 @@
 import './AttachmentWithReferences.css';
 
-import { Fragment, memo, type MouseEventHandler, type PropsWithChildren, useCallback, useMemo } from 'react';
+import { Fragment, memo, type MouseEventHandler, type PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { hooks } from 'botframework-webchat';
 import classNames from 'classnames';
 
@@ -45,7 +45,7 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
 
   const references = useMemo(() => Object.freeze(text ? Array.from(getLinksFromMarkdown(text, claimMap)) : []), [text]);
 
-  const handleCitationClick = useCallback<Exclude<PropsOf<typeof References>['onCitationClick'], undefined>>(
+  const handleReferencesCitationClick = useCallback<Exclude<PropsOf<typeof References>['onCitationClick'], undefined>>(
     reference => {
       setDisplayedCitationId(reference.id);
     },
