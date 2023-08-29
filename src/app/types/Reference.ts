@@ -19,4 +19,11 @@ export type URLReference = BaseReference & {
   url: string;
 };
 
+export function isCitationReference(ref: Reference): ref is CitationReference {
+  return (ref as CitationReference).citationText !== undefined;
+}
+export function isURLReference(ref: Reference): ref is URLReference {
+  return (ref as URLReference).url !== undefined;
+}
+
 export type Reference = CitationReference | URLReference;
