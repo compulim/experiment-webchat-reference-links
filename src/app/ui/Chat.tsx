@@ -68,7 +68,11 @@ export default memo(function Chat({ activity }: Props) {
 
         const activity = args[0]?.activity;
 
-        if (activity?.from.role === 'bot' && activity?.type === 'message') {
+        if (
+          activity?.from.role === 'bot' &&
+          activity?.type === 'message' &&
+          (!activity.textFormat || activity.textFormat === 'markdown')
+        ) {
           return <AttachmentWithReferences activity={activity}>{original}</AttachmentWithReferences>;
         }
 
