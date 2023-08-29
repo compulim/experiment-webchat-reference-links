@@ -1,15 +1,10 @@
 import './References.css';
 
 import { memo } from 'react';
-
-type Reference = {
-  id: string;
-  text?: string;
-  title?: string;
-  url?: string;
-};
+import type { CitationReference, Reference } from '../types/Reference';
 
 type Props = {
+  onCitationClick?: (citation: CitationReference) => void;
   references: ReadonlyArray<Reference>;
 };
 
