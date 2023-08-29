@@ -1,7 +1,7 @@
 import './References.css';
 
 import { memo } from 'react';
-import { CitationReference, Reference, isURLReference} from '../types/Reference';
+import { CitationReference, Reference, isURLReference } from '../types/Reference';
 
 type Props = {
   onCitationClick?: (citation: CitationReference) => void;
@@ -12,14 +12,16 @@ export default memo(({ references }: Props) => {
   return (
     <ul>
       {references.map(reference => (
-        <li className='outerBox'>
-          <span className='innerBox'>{reference.id}</span>
-          <span className='link'>
-            {
-              isURLReference(reference) ? 
-                <a target="_blank" rel="noopener noreferrer" href={reference.url}>{reference.title}</a> : 
-                <button>{reference.title}</button>
-            }
+        <li className="outerBox">
+          <span className="innerBox">{reference.id}</span>
+          <span className="link">
+            {isURLReference(reference) ? (
+              <a target="_blank" rel="noopener noreferrer" href={reference.url}>
+                {reference.title}
+              </a>
+            ) : (
+              <button>{reference.title}</button>
+            )}
           </span>
         </li>
       ))}
