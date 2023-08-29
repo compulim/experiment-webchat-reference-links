@@ -57,9 +57,10 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
     return Object.freeze([
       ...links
         .filter(({ url }) => !url.startsWith('x-pva-citation:'))
+        // TODO: We may not need this map().
         .map(link => ({
-          id: 'xxx',
-          title: 'Hello, World!',
+          id: link.id,
+          title: link.title,
           url: link.url
         })),
       ...entities.reduce<Array<Reference>>(

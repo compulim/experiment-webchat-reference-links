@@ -1,48 +1,70 @@
-// @ts-expect-error "markdown-it" has no typed
-import MarkdownIt from 'markdown-it';
+// @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
+import { fromMarkdown } from 'mdast-util-from-markdown';
 
-type MarkdownItNodeAttrs = [string, string];
-
-type MarkdownItNode = {
-  attrs: null | Array<MarkdownItNodeAttrs>;
-  children: null | Array<MarkdownItNode>;
-  type: string | 'link_open';
-};
-
-type MarkdownItLinkOpenNodeAttrs = ['href', string];
-
-type MarkdownItLinkOpenNode = MarkdownItNode & {
-  attrs: Array<MarkdownItNodeAttrs | MarkdownItLinkOpenNodeAttrs>;
-  children: null;
-  type: 'link_open';
-};
+import type { Definition, LinkReference, Node, Parent, Root } from 'mdast';
 
 type Link = {
+  id: string;
+  title?: string;
   url: string;
 };
 
-function* walk(tree: MarkdownItNode): Generator<MarkdownItNode> {
-  if (tree.children) {
-    for (const node of tree.children) {
-      yield node;
-      yield* walk(node);
+function* walk(tree: Parent): Generator<Node> {
+  for (const child of tree.children) {
+    yield child;
+
+    const { type } = child;
+
+    if (
+      type === 'blockquote' ||
+      type === 'delete' ||
+      type === 'emphasis' ||
+      type === 'footnoteDefinition' ||
+      type === 'heading' ||
+      type === 'link' ||
+      type === 'linkReference' ||
+      type === 'list' ||
+      type === 'listItem' ||
+      type === 'paragraph' ||
+      type === 'strong' ||
+      type === 'table' ||
+      type === 'tableCell' ||
+      type === 'tableRow'
+    ) {
+      yield* walk(child);
     }
   }
 }
 
-function isLinkOpen(node: MarkdownItNode): node is MarkdownItLinkOpenNode {
-  return node.type === 'link_open';
+function isDefinition(node: Node): node is Definition {
+  return node.type === 'definition';
+}
+
+function isLinkReference(node: Node): node is LinkReference {
+  return node.type === 'linkReference';
+}
+
+function getDefinition(root: Root, identifier: string): Definition | undefined {
+  return root.children.find<Definition>(
+    (topLevelNode: Node): topLevelNode is Definition =>
+      isDefinition(topLevelNode) && topLevelNode.identifier === identifier
+  );
 }
 
 export default function* getLinksFromMarkdown(text: string): Generator<Link> {
-  const markdownTree: Array<MarkdownItNode> = new MarkdownIt().parse(text, {});
-  const root: MarkdownItNode = { attrs: null, children: markdownTree, type: 'root' };
+  const tree = fromMarkdown(text);
 
-  for (const node of walk(root)) {
-    if (isLinkOpen(node)) {
-      yield {
-        url: node.attrs.find(([name]) => name === 'href')?.[1] || ''
-      };
+  for (const node of walk(tree)) {
+    if (isLinkReference(node)) {
+      const definition = getDefinition(tree, node.identifier);
+
+      if (definition) {
+        yield {
+          id: definition.identifier,
+          title: definition.title || undefined,
+          url: definition.url
+        };
+      }
     }
   }
 }

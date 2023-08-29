@@ -5,7 +5,7 @@ import { memo } from 'react';
 type Reference = {
   id: string;
   text?: string;
-  title: string;
+  title?: string;
   url?: string;
 };
 
