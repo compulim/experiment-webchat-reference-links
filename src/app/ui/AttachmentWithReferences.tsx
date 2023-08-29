@@ -1,9 +1,10 @@
 import './AttachmentWithReferences.css';
 
-import { Fragment, memo, useMemo, type PropsWithChildren, useCallback } from 'react';
+import { Fragment, memo, useMemo, type PropsWithChildren, useCallback, useState } from 'react';
 
 import getLinksFromMarkdown from '../utils/getLinksFromMarkdown';
 import References from './References';
+import CitationWindow from './CitationWindow';
 
 import { isClaim, type Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
 import { isEntity, type Entity as SchemaOrgEntity } from '../types/SchemaOrg/Entity';
@@ -21,6 +22,7 @@ type Props = PropsWithChildren<{
 export default memo(function AttachmentWithReferences({ activity, children }: Props) {
   const entities = (activity.entities || []) as Array<SchemaOrgEntity | WebChatEntity>;
   const { text } = activity;
+  const [displayedCitationId, setDisplayedCitationId] = useState<string | null>(null);
 
   if (activity.textFormat && activity.textFormat !== 'markdown') {
     return children;
@@ -40,7 +42,7 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
 
   const handleCitationClick = useCallback<Exclude<PropsOf<typeof References>['onCitationClick'], undefined>>(
     reference => {
-      alert(reference.citationText);
+      setDisplayedCitationId(reference.id);
     },
     [references]
   );
@@ -53,6 +55,15 @@ export default memo(function AttachmentWithReferences({ activity, children }: Pr
           <summary className="ref-list__summary">{references.length} references</summary>
           <References onCitationClick={handleCitationClick} references={references} />
         </details>
+      )}
+      {displayedCitationId !== null && (
+        <CitationWindow
+          text={'text'}
+          onClose={() => {
+            console.log('>> clicked close');
+            setDisplayedCitationId(null);
+          }}
+        />
       )}
     </Fragment>
   );

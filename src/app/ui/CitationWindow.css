@@ -1,0 +1,20 @@
+div .mainWindow {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    background-color: #ffffff;
+    border: 2px solid black;
+    font-family: Calibri, "Helvetica Neue", Arial, "sans-serif";
+    padding: 8px;
+}
+
+div > button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    border-width: 0px;
+    background-color: transparent;
+    font-size: 2em;
+}
