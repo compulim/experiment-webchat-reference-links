@@ -28,3 +28,8 @@ details[open] > summary::after {
     border-bottom: 2px solid #616161;
     transform: rotate(45deg);
 }
+
+.pva-citation-button {
+  appearance: none;
+  color: Green;
+}
