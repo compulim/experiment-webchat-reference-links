@@ -9,5 +9,5 @@ type Props = {
 };
 
 export default memo(function Badge({ className, value }: Props) {
-  return <div className={classNames('pva__references__badge', className)}>{value === '1' ? '999' : value}</div>;
+  return <div className={classNames('pva__references__badge', className)}>{value}</div>;
 });

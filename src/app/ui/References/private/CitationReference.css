@@ -2,7 +2,7 @@
   appearance: none;
   background: transparent;
   border: 0;
-  color: #118dff;
+  color: #118dff; /* TODO: Use accent color */
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;
