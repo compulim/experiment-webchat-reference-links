@@ -160,7 +160,7 @@ export default function render(
       token.attrSet('data-webchat-citation-href', href);
       token.attrSet('type', 'button');
 
-      const linkCloseToken = tokens.slice(index).find(({ type }) => type === 'link_close');
+      const linkCloseToken = tokens.slice(index).find(({ type }: { type: string }) => type === 'link_close');
 
       if (linkCloseToken) {
         linkCloseToken.tag = 'button';
