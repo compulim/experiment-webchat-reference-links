@@ -107,16 +107,16 @@ export default memo(function Chat({ activity }: Props) {
 
   return (
     <div className="chat">
-      <CitationWindowProvider>
-        <Composer
-          // activityMiddleware={activityMiddleware}
-          attachmentMiddleware={attachmentMiddleware}
-          directLine={directLine}
-          store={store}
-        >
+      <Composer
+        // activityMiddleware={activityMiddleware}
+        attachmentMiddleware={attachmentMiddleware}
+        directLine={directLine}
+        store={store}
+      >
+        <CitationWindowProvider>
           <_Chat />
-        </Composer>
-      </CitationWindowProvider>
+        </CitationWindowProvider>
+      </Composer>
     </div>
   );
 });
