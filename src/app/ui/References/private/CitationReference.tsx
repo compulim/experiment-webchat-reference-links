@@ -18,13 +18,8 @@ export default memo(({ onClick, claim }: Props) => {
   }, [claim]);
 
   return (
-    <li className="outerBox">
-      <span className="innerBox">{claim.alternateName}</span>
-      <span className="link">
-        <button className="pva__citation-reference__button" onClick={handleClick} type="button">
-          {claim.name}
-        </button>
-      </span>
-    </li>
+    <button className="pva__references__citation-reference__button" onClick={handleClick} type="button">
+      {claim.name}
+    </button>
   );
 });

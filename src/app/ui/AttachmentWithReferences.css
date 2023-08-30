@@ -33,14 +33,15 @@ details[open] > summary::after {
   appearance: none;
   border: 0;
   background-color: transparent;
-  color: #118DFF;
+  color: var(--pva__accent-color);
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;
   padding: 0;
   text-decoration: underline;
+  white-space: nowrap;
 }
 
 .pva__generative-answer-markdown__reference--link {
-  color: #118DFF;
+  color: var(--pva__accent-color);
 }

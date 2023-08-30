@@ -1,7 +1,8 @@
 import './Chat.css';
 
+import { css } from '@emotion/css';
+import { Components, createStore, hooks } from 'botframework-webchat';
 import { memo, useEffect, useMemo, useState } from 'react';
-import ReactWebChat, { createStore } from 'botframework-webchat';
 
 // import ActivityWithReferences from './ActivityWithReferences';
 // @ts-expect-error 7016
@@ -12,12 +13,28 @@ import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvi
 
 import { type PropsOf } from '../types/PropsOf';
 
-// type ActivityMiddleware = PropsOf<typeof ReactWebChat>['activityMiddleware'];
-type AttachmentMiddleware = PropsOf<typeof ReactWebChat>['attachmentMiddleware'];
+const { BasicWebChat, Composer } = Components;
+const { useStyleOptions } = hooks;
+
+type AttachmentMiddleware = PropsOf<typeof Composer>['attachmentMiddleware'];
 
 type Props = {
   activity: unknown;
 };
+
+const _Chat = memo(function () {
+  const [{ accent }] = useStyleOptions();
+
+  const className = useMemo(
+    () =>
+      css({
+        '--pva__accent-color': accent
+      }),
+    [accent]
+  );
+
+  return <BasicWebChat className={className} />;
+});
 
 export default memo(function Chat({ activity }: Props) {
   const [ready, setReady] = useState(false);
@@ -91,12 +108,14 @@ export default memo(function Chat({ activity }: Props) {
   return (
     <div className="chat">
       <CitationWindowProvider>
-        <ReactWebChat
+        <Composer
           // activityMiddleware={activityMiddleware}
           attachmentMiddleware={attachmentMiddleware}
           directLine={directLine}
           store={store}
-        />
+        >
+          <_Chat />
+        </Composer>
       </CitationWindowProvider>
     </div>
   );

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@fluentui/react": "8.109.3",
+    "@emotion/css": "11.11.2",
     "botframework-webchat": "4.15.9",
     "botframework-webchat-core": "4.15.9",
     "classnames": "^2.3.2",
