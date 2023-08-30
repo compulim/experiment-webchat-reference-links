@@ -158,8 +158,6 @@ export default function render(
       );
       token.attrSet('data-webchat-citation-href', href);
       token.attrSet('type', 'button');
-
-      console.log(tokens);
     });
 
   let html = markdownIt.render(markdown);
