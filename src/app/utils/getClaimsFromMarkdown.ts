@@ -1,6 +1,8 @@
 // @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
+import stripMarkdown from './stripMarkdown';
+
 // import type { Reference } from '../types/Reference';
 import type { Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
 import type { Definition, LinkReference, Node, Parent, Root, Text } from 'mdast';
@@ -79,7 +81,9 @@ export default function* getClaimsFromMarkdown(
           yield {
             ...claim,
             alternateName: textReferenced,
-            name: claim.text
+            name: stripMarkdown(claim.text)
+              .replace(/\r\n/gu, ' ')
+              .replace(/\s{2,}/gu, ' ')
           };
         }
       } else {
