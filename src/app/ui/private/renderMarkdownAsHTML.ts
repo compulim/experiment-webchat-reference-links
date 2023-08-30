@@ -124,10 +124,11 @@ export default function render(
       token.attrSet('rel', 'noopener noreferrer');
       token.attrSet('target', '_blank');
 
+      // // @ts-expect-error no typings
+      // const linkOpenToken = tokens.find(({ type }) => type === 'link_open');
       // @ts-expect-error no typings
-      const linkOpenToken = tokens.find(({ type }) => type === 'link_open');
-      // @ts-expect-error no typings
-      const [, href] = linkOpenToken.attrs.find(([name]) => name === 'href');
+      // const [, href] = linkOpenToken.attrs.find(([name]) => name === 'href');
+      const [, href] = token.attrs.find(([name]) => name === 'href');
 
       // Adds a new icon if the link is http: or https:.
       // Don't add if it's a phone number, etc.
@@ -158,6 +159,12 @@ export default function render(
       );
       token.attrSet('data-webchat-citation-href', href);
       token.attrSet('type', 'button');
+
+      const linkCloseToken = tokens.slice(index).find(({ type }) => type === 'link_close');
+
+      if (linkCloseToken) {
+        linkCloseToken.tag = 'button';
+      }
     });
 
   let html = markdownIt.render(markdown);

@@ -1,32 +1,41 @@
 .ref-list__summary {
-  font-family: Calibri, "Helvetica Neue", Arial, "sans-serif";
+  font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
   font-size: 80%;
   margin-left: 10px;
   margin-bottom: 6px;
   list-style: none;
-  color: #616161
+  color: #616161;
 }
 
 details > summary::after {
-    display: inline-block;
-    content: "";
-    height: .5em;
-    width: .5em;
-    margin-left: 8px;
-    border-right: 2px solid #616161;
-    border-bottom: 2px solid #616161;
-    transform: rotate(225deg);
+  display: inline-block;
+  content: '';
+  height: 0.5em;
+  width: 0.5em;
+  margin-left: 8px;
+  border-right: 2px solid #616161;
+  border-bottom: 2px solid #616161;
+  transform: rotate(225deg);
 }
 
 details[open] > summary::after {
-    display: inline-block;
-    content: "";
-    height: .5em;
-    width: .5em;
-    margin-left: 8px;
-    border-right: 2px solid #616161;
-    border-bottom: 2px solid #616161;
-    transform: rotate(45deg);
+  display: inline-block;
+  content: '';
+  height: 0.5em;
+  width: 0.5em;
+  margin-left: 8px;
+  border-right: 2px solid #616161;
+  border-bottom: 2px solid #616161;
+  transform: rotate(45deg);
+}
+
+.pva__generative-answer-markdown__reference::after {
+  content: ']';
+}
+
+.pva__generative-answer-markdown__reference::before {
+  content: '[';
+  padding-left: .2em;
 }
 
 .pva__generative-answer-markdown__reference--citation {
