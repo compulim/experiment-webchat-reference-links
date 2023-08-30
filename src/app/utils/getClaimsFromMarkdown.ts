@@ -79,7 +79,7 @@ export default function* getClaimsFromMarkdown(
           yield {
             ...claim,
             alternateName: textReferenced,
-            name: claim.text.substring(0, 50)
+            name: claim.text.substring(0, 100)
           };
         }
       } else {

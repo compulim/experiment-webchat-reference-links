@@ -35,6 +35,8 @@ details[open] > summary::after {
   background-color: transparent;
   color: #118DFF;
   cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
   padding: 0;
   text-decoration: underline;
 }

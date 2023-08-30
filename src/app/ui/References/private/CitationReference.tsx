@@ -1,3 +1,5 @@
+import './CitationReference.css';
+
 import { memo, type MouseEventHandler, useCallback } from 'react';
 
 import { type Claim } from '../../../types/SchemaOrg/Claim';
@@ -19,7 +21,9 @@ export default memo(({ onClick, claim }: Props) => {
     <li className="outerBox">
       <span className="innerBox">{claim.alternateName}</span>
       <span className="link">
-        <button onClick={handleClick}>{claim.name}</button>
+        <button className="pva__citation-reference__button" onClick={handleClick} type="button">
+          {claim.name}
+        </button>
       </span>
     </li>
   );

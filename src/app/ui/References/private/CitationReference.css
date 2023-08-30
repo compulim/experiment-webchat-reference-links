@@ -1,0 +1,11 @@
+.pva__citation-reference__button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #118DFF;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
