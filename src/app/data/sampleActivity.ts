@@ -73,7 +73,7 @@ Configuring Proxy Auto-Discovery (PAD) proxy settings is a vital task for networ
 `
     },
     {
-      '@id': 'x-webchat-recipient-id:bot',
+      '@id': 'x-direct-line-account-id:bot',
       '@context': 'https://schema.org/',
       '@type': 'Person',
       type: 'https://schema.org/Person',
