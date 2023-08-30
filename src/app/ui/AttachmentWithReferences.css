@@ -1,32 +1,28 @@
-.ref-list__summary {
+.pva__generative-answer-markdown__accordion {
+  margin: 0 10px 10px;
+}
+
+.pva__generative-answer-markdown__accordion[open] .pva__generative-answer-markdown__accordion__header::after {
+  transform: rotate(0deg);
+}
+
+.pva__generative-answer-markdown__accordion__header {
+  color: #616161;
   font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
   font-size: 80%;
-  margin-left: 10px;
-  margin-bottom: 6px;
   list-style: none;
-  color: #616161;
 }
 
-details > summary::after {
-  display: inline-block;
+.pva__generative-answer-markdown__accordion__header::after {
+  background-image: var(--pva__accordion-chevron--down);
   content: '';
-  height: 0.5em;
-  width: 0.5em;
-  margin-left: 8px;
-  border-right: 2px solid #616161;
-  border-bottom: 2px solid #616161;
-  transform: rotate(225deg);
-}
-
-details[open] > summary::after {
   display: inline-block;
-  content: '';
-  height: 0.5em;
-  width: 0.5em;
-  margin-left: 8px;
-  border-right: 2px solid #616161;
-  border-bottom: 2px solid #616161;
-  transform: rotate(45deg);
+  height: 1em;
+  margin: 0 2px 2px;
+  transform: rotate(180deg);
+  vertical-align: middle;
+  width: 1em;
+  zoom: 150%;
 }
 
 .pva__generative-answer-markdown__reference::after {
@@ -57,8 +53,8 @@ details[open] > summary::after {
 .pva__generative-answer-markdown__external-icon {
   -webkit-mask-image: var(--pva__external-link-icon);
   background-color: var(--pva__accent-color);
-  height: .75em;
+  height: 0.75em;
   mask-image: var(--pva__external-link-icon);
-  margin: 0 .1em;
-  width: .75em!important; /* Web Chat maximize <img>, we should fix it there */
+  margin: 0 0.1em;
+  width: 0.75em !important; /* Web Chat maximize <img>, we should fix it there */
 }

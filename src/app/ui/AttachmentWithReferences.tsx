@@ -114,9 +114,10 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
         }}
         onClick={handleMarkdownCitationClick}
       />
+      {/* TODO: Move the accordion to <References> */}
       {claims.length > 0 && (
-        <details open className="ref-list">
-          <summary className="ref-list__summary">{claims.length} references</summary>
+        <details open className="pva__generative-answer-markdown__accordion">
+          <summary className="pva__generative-answer-markdown__accordion__header">{claims.length} references</summary>
           <References onCitationClick={handleReferencesCitationClick} claims={claims} />
         </details>
       )}
