@@ -39,6 +39,7 @@ details[open] > summary::after {
   font-size: inherit;
   padding: 0;
   text-decoration: underline;
+  white-space: nowrap;
 }
 
 .pva__generative-answer-markdown__reference--link {
