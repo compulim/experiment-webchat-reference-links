@@ -24,9 +24,7 @@ const provenanceActivityStatusMiddleware: ActivityStatusMiddleware =
 
     const person = entities.find<Person>(
       (entity): entity is Person =>
-        isEntity(entity) &&
-        isPerson(entity) &&
-        entity['@id'] === `ms-bf-channel-account-id:${activity.from.id}`
+        isEntity(entity) && isPerson(entity) && entity['@id'] === `ms-bf-channel-account-id:${activity.from.id}`
     );
 
     if (person) {

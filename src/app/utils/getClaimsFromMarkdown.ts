@@ -74,7 +74,7 @@ export default function* getClaimsFromMarkdown(
       const { identifier: id, title, url } = definition;
       const textReferenced = node.children.find<Text>((node): node is Text => node.type === 'text')?.value || '';
 
-      if (getURLProtocol(url) === 'x-pva-citation:') {
+      if (getURLProtocol(url) === 'ms-pva-citation:') {
         const claim = claimsWithText.get(url);
 
         if (claim) {

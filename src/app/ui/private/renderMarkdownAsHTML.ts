@@ -148,7 +148,7 @@ export default function render(
       // @ts-expect-error no typings
       const [, href] = token.attrs.find(([name]) => name === 'href');
 
-      if (!href?.startsWith('x-pva-citation:')) {
+      if (!href?.startsWith('ms-pva-citation:')) {
         return;
       }
 
