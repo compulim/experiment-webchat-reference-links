@@ -6,12 +6,12 @@ export default {
 
 [1]: https://support.microsoft.com/en-us/windows/use-a-proxy-server-in-windows-03096c53-0554-4ffe-b6ab-8b1deee8dae1 "Use a proxy server in Windows"
 [2]: https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/configure-proxy-server-settings "Configure proxy server settings - Windows Server"
-[3]: x-pva-citation:cite-1 "Introduction Configuring proxy settings is a fundamental aspect..."
+[3]: ms-pva-citation:cite-1 "Introduction Configuring proxy settings is a fundamental aspect..."
 `,
   entities: [
     {
       '@context': 'https://schema.org/',
-      '@id': 'x-pva-citation:cite-1',
+      '@id': 'ms-pva-citation:cite-1',
       '@type': 'Claim',
       type: 'https://schema.org/Claim',
 
@@ -73,7 +73,7 @@ Configuring Proxy Auto-Discovery (PAD) proxy settings is a vital task for networ
 `
     },
     {
-      '@id': 'x-direct-line-channel-account-id:bot',
+      '@id': 'ms-bf-channel-account-id:bot',
       '@context': 'https://schema.org/',
       '@type': 'Person',
       type: 'https://schema.org/Person',
