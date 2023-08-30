@@ -1,16 +1,17 @@
 import './AttachmentWithReferences.css';
 
-import { Fragment, memo, type MouseEventHandler, type PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { Fragment, memo, type MouseEventHandler, type PropsWithChildren, useCallback, useMemo } from 'react';
 import { hooks } from 'botframework-webchat';
 import classNames from 'classnames';
 
-import getLinksFromMarkdown from '../utils/getLinksFromMarkdown';
-import References from './References';
-import renderMarkdownAsHTML from './private/renderMarkdownAsHTML';
-import CitationWindow from './CitationWindow';
+import { type Claim, isClaim, hasText } from '../types/SchemaOrg/Claim';
+import { type Entity, isEntity } from '../types/SchemaOrg/Entity';
+import getClaimsFromMarkdown from '../utils/getClaimsFromMarkdown';
+import getURLProtocol from '../utils/getURLProtocol';
 
-import { isClaim, type Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
-import { isEntity, type Entity as SchemaOrgEntity } from '../types/SchemaOrg/Entity';
+import useShowCitationWindow from './CitationWindowProvider/useShowCitationWindow';
+import renderMarkdownAsHTML from './private/renderMarkdownAsHTML';
+import References from './References/References';
 
 import type { ItemTypeOfArray } from '../types/ItemTypeOfArray';
 import type { PropsOf } from '../types/PropsOf';
@@ -21,107 +22,103 @@ const { useLocalizer, useStyleOptions, useStyleSet } = hooks;
 type WebChatEntity = ItemTypeOfArray<Exclude<WebChatActivity['entities'], undefined>>;
 
 type Props = PropsWithChildren<{
-  activity: WebChatActivity & { type: 'message' };
+  activity: WebChatActivity &
+    // tl;dr must be a Markdown message
+    (| {
+          type: 'message';
+        }
+      | {
+          textFormat: 'markdown' | undefined;
+          type: 'message';
+        }
+    );
 }>;
 
-export default memo(function AttachmentWithReferences({ activity, children }: Props) {
-  const entities = (activity.entities || []) as Array<SchemaOrgEntity | WebChatEntity>;
+type ReferencesProps = PropsOf<typeof References>['onCitationClick'];
+
+function isButtonElement(button: HTMLElement): button is HTMLButtonElement {
+  return button.matches('button');
+}
+
+export default memo(function AttachmentWithReferences({ activity }: Props) {
   const { text } = activity;
-  const [displayedCitationId, setDisplayedCitationId] = useState<string | null>(null);
+  const entities = (activity.entities || []) as Array<Entity | WebChatEntity>;
+  const showCitationWindow = useShowCitationWindow();
 
-  if (activity.textFormat && activity.textFormat !== 'markdown') {
-    return children;
-  }
-
-  const claimMap = useMemo<Map<string, SchemaOrgClaim>>(
+  // Citations are claim with text.
+  // We are building a map for quick lookup.
+  const citationMap = useMemo<Map<string, Claim & { text: string }>>(
     () =>
-      entities.reduce<Map<string, SchemaOrgClaim>>(
-        (citationMap, entity) =>
-          isEntity(entity) && isClaim(entity) && entity['@id'] ? citationMap.set(entity['@id'], entity) : citationMap,
-        new Map()
-      ),
+      entities.reduce<Map<string, Claim & { text: string }>>((citationMap, entity) => {
+        if (isEntity(entity) && isClaim(entity) && hasText(entity) && entity['@id']) {
+          return citationMap.set(entity['@id'], entity);
+        }
+
+        return citationMap;
+      }, new Map()),
     [entities]
   );
 
-  const references = useMemo(() => Object.freeze(text ? Array.from(getLinksFromMarkdown(text, claimMap)) : []), [text]);
+  // These are all the claims, including citation (claim with text) and links (claim without text but URL).
+  const claims = useMemo(() => Object.freeze(text ? Array.from(getClaimsFromMarkdown(text, citationMap)) : []), [text]);
 
-  const handleReferencesCitationClick = useCallback<Exclude<PropsOf<typeof References>['onCitationClick'], undefined>>(
-    reference => {
-      setDisplayedCitationId(reference.id);
+  // Handles all clicks on citation inside Markdown text.
+  const handleMarkdownCitationClick = useCallback<MouseEventHandler<HTMLDivElement>>(({ target }) => {
+    // Find out what <button> is being clicked.
+    const targetElement = target as HTMLElement;
+    const buttonElement: HTMLButtonElement | undefined = isButtonElement(targetElement)
+      ? targetElement
+      : (targetElement.closest('button') as HTMLButtonElement | undefined);
+
+    if (!buttonElement) {
+      return;
+    }
+
+    // <button data-webchat-citation-href="x-pva-citation:cite-1">1</button>
+    const href = buttonElement.dataset.webchatCitationHref;
+
+    if (!href || getURLProtocol(href) !== 'x-pva-citation:') {
+      return;
+    }
+
+    const claim = citationMap.get(href);
+
+    if (claim && hasText(claim)) {
+      showCitationWindow(claim);
+    }
+  }, []);
+
+  // Handles all clicks on citation in the reference list.
+  const handleReferencesCitationClick = useCallback<Exclude<ReferencesProps, undefined>>(
+    claim => {
+      showCitationWindow(claim);
     },
-    [references]
+    [showCitationWindow]
   );
 
+  // --- Separate out the section below. The following code are forked/adopted. ---
   // TODO: Unfork the code.
 
   const [{ textContent: textContentStyleSet }] = useStyleSet();
   const [styleOptions] = useStyleOptions();
   const localize = useLocalizer();
-  // const renderMarkdownAsHTML = useRenderMarkdownAsHTML();
 
   const externalLinkAlt = localize('MARKDOWN_EXTERNAL_LINK_ALT');
-
-  function isButtonElement(button: HTMLElement): button is HTMLButtonElement {
-    return button.matches('button');
-  }
-
-  const handleMarkdownCitationClick = useCallback<MouseEventHandler<HTMLDivElement>>(({ target }) => {
-    const targetElement = target as HTMLElement;
-    const buttonTarget: HTMLButtonElement | undefined = isButtonElement(targetElement)
-      ? targetElement
-      : (targetElement.closest('button') as HTMLButtonElement | undefined);
-
-    if (!buttonTarget) {
-      return;
-    }
-
-    const href = buttonTarget.dataset.webchatCitationHref;
-
-    if (!href) {
-      return;
-    }
-
-    let url: URL;
-
-    try {
-      url = new URL(href);
-    } catch (error) {
-      console.error(error);
-      return;
-    }
-
-    if (url.protocol !== 'x-pva-citation:') {
-      return;
-    }
-
-    const claim = claimMap.get(href);
-
-    claim && alert(JSON.stringify(claim, null, 2));
-  }, []);
 
   return (
     <Fragment>
       <div
-        className={classNames('markdown', textContentStyleSet + '')}
+        className={classNames('pva__generative-answer__text', 'markdown', textContentStyleSet + '')}
         dangerouslySetInnerHTML={{
-          __html: renderMarkdownAsHTML(activity.text || '', styleOptions, { externalLinkAlt }, md => md)
+          __html: renderMarkdownAsHTML(activity.text || '', styleOptions, { externalLinkAlt })
         }}
         onClick={handleMarkdownCitationClick}
       />
-      {references.length && (
+      {claims.length && (
         <details open className="ref-list">
-          <summary className="ref-list__summary">{references.length} references</summary>
-          <References onCitationClick={handleReferencesCitationClick} references={references} />
+          <summary className="ref-list__summary">{claims.length} references</summary>
+          <References onCitationClick={handleReferencesCitationClick} claims={claims} />
         </details>
-      )}
-      {displayedCitationId !== null && (
-        <CitationWindow
-          text={'text'}
-          onClose={() => {
-            console.log('>> clicked close');
-            setDisplayedCitationId(null);
-          }}
-        />
       )}
     </Fragment>
   );

@@ -29,7 +29,7 @@ details[open] > summary::after {
     transform: rotate(45deg);
 }
 
-.pva-citation-button {
+.pva__generative-answer-markdown__reference--citation {
   appearance: none;
   border: 0;
   background-color: transparent;
@@ -37,4 +37,8 @@ details[open] > summary::after {
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
+}
+
+.pva__generative-answer-markdown__reference--link {
+  color: #118DFF;
 }

@@ -1,7 +1,7 @@
 // @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
-import type { Reference } from '../types/Reference';
+// import type { Reference } from '../types/Reference';
 import type { Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
 import type { Definition, LinkReference, Node, Parent, Root, Text } from 'mdast';
 
@@ -55,7 +55,10 @@ function getURLProtocol(url: string): string | undefined {
   }
 }
 
-export default function* getLinksFromMarkdown(text: string, claims: Map<string, SchemaOrgClaim>): Generator<Reference> {
+export default function* getClaimsFromMarkdown(
+  text: string,
+  claimsWithText: Map<string, SchemaOrgClaim & { text: string }>
+): Generator<SchemaOrgClaim> {
   const tree = fromMarkdown(text);
 
   for (const node of walk(tree)) {
@@ -70,21 +73,23 @@ export default function* getLinksFromMarkdown(text: string, claims: Map<string, 
       const textReferenced = node.children.find<Text>((node): node is Text => node.type === 'text')?.value || '';
 
       if (getURLProtocol(url) === 'x-pva-citation:') {
-        const claim = claims.get(url);
+        const claim = claimsWithText.get(url);
 
         if (claim) {
           yield {
-            citationText: claim.text,
-            id,
-            textReferenced,
-            title: title || undefined
+            ...claim,
+            alternateName: textReferenced,
+            name: claim.text.substring(0, 50)
           };
         }
       } else {
         yield {
-          id,
-          textReferenced,
-          title: title || undefined,
+          '@context': 'https://schema.org/',
+          '@id': id,
+          '@type': 'Claim',
+          alternateName: textReferenced,
+          name: title || undefined,
+          type: 'https://schema.org/Claim',
           url: definition.url
         };
       }

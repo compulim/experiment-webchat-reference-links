@@ -7,8 +7,10 @@ import ReactWebChat, { createStore } from 'botframework-webchat';
 // @ts-expect-error 7016
 import createDirectLineEmulator from '../createDirectLineEmulator';
 
-import { type PropsOf } from '../types/PropsOf';
 import AttachmentWithReferences from './AttachmentWithReferences';
+import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvider';
+
+import { type PropsOf } from '../types/PropsOf';
 
 // type ActivityMiddleware = PropsOf<typeof ReactWebChat>['activityMiddleware'];
 type AttachmentMiddleware = PropsOf<typeof ReactWebChat>['attachmentMiddleware'];
@@ -88,12 +90,14 @@ export default memo(function Chat({ activity }: Props) {
 
   return (
     <div className="chat">
-      <ReactWebChat
-        // activityMiddleware={activityMiddleware}
-        attachmentMiddleware={attachmentMiddleware}
-        directLine={directLine}
-        store={store}
-      />
+      <CitationWindowProvider>
+        <ReactWebChat
+          // activityMiddleware={activityMiddleware}
+          attachmentMiddleware={attachmentMiddleware}
+          directLine={directLine}
+          store={store}
+        />
+      </CitationWindowProvider>
     </div>
   );
 });

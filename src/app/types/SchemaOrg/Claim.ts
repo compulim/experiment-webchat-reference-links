@@ -5,8 +5,12 @@ export type Claim = Entity & {
   '@context': 'https://schema.org/';
   '@id'?: string;
   '@type': 'Claim';
-  text: string;
   type: 'https://schema.org/Claim';
+
+  /* The textual content of this CreativeWork. */
+  text?: string;
+
+  /* URL of the item. */
   url?: string;
 };
 
@@ -15,4 +19,8 @@ export function isClaim(entity: Entity): entity is Claim {
     entity.type === 'https://schema.org/Claim' ||
     (entity['@context'] === 'https://schema.org/' && entity['@type'] === 'Claim')
   );
+}
+
+export function hasText(claim: Claim): claim is Claim & { text: string } {
+  return !!claim.text;
 }

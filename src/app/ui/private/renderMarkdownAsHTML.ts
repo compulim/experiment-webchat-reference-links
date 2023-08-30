@@ -11,7 +11,7 @@ import sanitizeHTML from 'sanitize-html';
 
 const SANITIZE_HTML_OPTIONS = {
   allowedAttributes: {
-    a: ['aria-label', 'href', 'name', 'rel', 'target', 'title'],
+    a: ['aria-label', 'class', 'href', 'name', 'rel', 'target', 'title'],
     button: ['class', 'data-webchat-citation-href', 'type'],
     img: ['alt', 'class', 'src']
   },
@@ -78,8 +78,7 @@ const MARKDOWN_ATTRS_RIGHT_DELIMITER_PATTERN = new RegExp(MARKDOWN_ATTRS_RIGHT_D
 export default function render(
   markdown: string,
   { markdownRespectCRLF }: { markdownRespectCRLF: boolean },
-  { externalLinkAlt = '' }: { externalLinkAlt?: string } = {},
-  markdownItCallback: (markdownIt: MarkdownIt) => MarkdownIt
+  { externalLinkAlt = '' }: { externalLinkAlt?: string } = {}
 ): string {
   if (markdownRespectCRLF) {
     markdown = markdown.replace(/\n\r|\r\n/gu, carriageReturn => (carriageReturn === '\n\r' ? '\r\n' : '\n\r'));
@@ -115,25 +114,13 @@ export default function render(
       rightDelimiter: MARKDOWN_ATTRS_RIGHT_DELIMITER
     })
     // @ts-expect-error no typings
-    .use(iterator, 'pva_citation', 'link_open', (tokens, index) => {
-      const token = tokens[+index];
-
-      // @ts-expect-error no typings
-      const [, href] = token.attrs.find(([name]) => name === 'href');
-
-      if (!href?.startsWith('x-pva-citation:')) {
-        return;
-      }
-
-      token.tag = 'button';
-      token.attrs.push(['class', 'pva-citation-button']);
-      token.attrs.push(['data-webchat-citation-href', href]);
-      token.attrs.push(['type', 'button']);
-    })
-    // @ts-expect-error no typings
     .use(iterator, 'url_new_win', 'link_open', (tokens, index) => {
       const token = tokens[+index];
 
+      token.attrSet(
+        'class',
+        'pva__generative-answer-markdown__reference pva__generative-answer-markdown__reference--link'
+      );
       token.attrSet('rel', 'noopener noreferrer');
       token.attrSet('target', '_blank');
 
@@ -153,9 +140,27 @@ export default function render(
 
         tokens.splice(index + 2, 0, ...iconTokens);
       }
-    });
+    }) // @ts-expect-error no typings
+    .use(iterator, 'pva_citation', 'link_open', (tokens, index) => {
+      const token = tokens[+index];
 
-  markdownIt = markdownItCallback(markdownIt);
+      // @ts-expect-error no typings
+      const [, href] = token.attrs.find(([name]) => name === 'href');
+
+      if (!href?.startsWith('x-pva-citation:')) {
+        return;
+      }
+
+      token.tag = 'button';
+      token.attrSet(
+        'class',
+        'pva__generative-answer-markdown__reference pva__generative-answer-markdown__reference--citation'
+      );
+      token.attrSet('data-webchat-citation-href', href);
+      token.attrSet('type', 'button');
+
+      console.log(tokens);
+    });
 
   let html = markdownIt.render(markdown);
 
