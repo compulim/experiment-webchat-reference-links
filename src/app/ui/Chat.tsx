@@ -23,12 +23,13 @@ type Props = {
 };
 
 const _Chat = memo(function () {
-  const [{ accent }] = useStyleOptions();
+  const [{ accent, markdownExternalLinkIconImage }] = useStyleOptions();
 
   const className = useMemo(
     () =>
       css({
-        '--pva__accent-color': accent
+        '--pva__accent-color': accent,
+        '--pva__external-link-icon': markdownExternalLinkIconImage
       }),
     [accent]
   );

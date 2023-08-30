@@ -137,7 +137,7 @@ export default function render(
 
         const iconTokens = internalMarkdownIt.parseInline(`![${externalLinkAlt}](${TRANSPARENT_GIF})`)[0].children;
 
-        iconTokens[0].attrJoin('class', 'webchat__markdown__external-link-icon');
+        iconTokens[0].attrJoin('class', 'pva__generative-answer-markdown__external-icon');
 
         tokens.splice(index + 2, 0, ...iconTokens);
       }
