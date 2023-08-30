@@ -3,6 +3,7 @@ import './References.css';
 import { memo } from 'react';
 
 import CitationReference from './private/CitationReference';
+import Item from './private/Item';
 import URLReference from './private/URLReference';
 
 import { type Claim, hasText } from '../../types/SchemaOrg/Claim';
@@ -14,14 +15,16 @@ type Props = {
 
 export default memo(({ claims, onCitationClick }: Props) => {
   return (
-    <ul>
-      {claims.map(claim => {
-        if (hasText(claim)) {
-          return <CitationReference claim={claim} onClick={onCitationClick} />;
-        }
-
-        return <URLReference claim={claim} />;
-      })}
+    <ul className="pva__references">
+      {claims.map(claim => (
+        <Item badge={claim.alternateName}>
+          {hasText(claim) ? (
+            <CitationReference claim={claim} onClick={onCitationClick} />
+          ) : (
+            <URLReference claim={claim} />
+          )}
+        </Item>
+      ))}
     </ul>
   );
 });

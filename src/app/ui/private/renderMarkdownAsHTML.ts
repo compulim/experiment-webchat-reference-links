@@ -98,7 +98,7 @@ export default function render(
         `${MARKDOWN_ATTRS_LEFT_DELIMITER}aria-label=${valueInsideQuotes}${MARKDOWN_ATTRS_RIGHT_DELIMITER}`
     );
 
-  let markdownIt = new MarkdownIt({
+  const markdownIt = new MarkdownIt({
     breaks: false,
     html: false,
     linkify: true,
