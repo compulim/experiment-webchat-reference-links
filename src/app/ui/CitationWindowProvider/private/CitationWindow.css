@@ -18,3 +18,8 @@ div > button.closeBox {
     background-color: transparent;
     font-size: 2em;
 }
+
+div > button.closeBox:focus{
+    border: 2px solid black;
+    border-radius: 2px;
+}

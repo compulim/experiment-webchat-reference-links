@@ -8,7 +8,7 @@ type Props = {
 const CitationWindow = ({ text, onClose }: Props) => {
   return (
     <div className="mainWindow">
-      <button className="closeBox" onClick={onClose}>
+      <button className="closeBox" onClick={onClose} tabIndex={0}>
         &times;
       </button>
       <span className="contents">{text}</span>

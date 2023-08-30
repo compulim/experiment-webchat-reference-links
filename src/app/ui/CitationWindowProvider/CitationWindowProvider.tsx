@@ -1,5 +1,7 @@
 import { memo, type ReactNode, useCallback, useMemo, useState } from 'react';
 
+import { FocusTrapZone } from '@fluentui/react/lib/FocusTrapZone';
+
 import CitationWindow from './private/CitationWindow';
 import CitationWindowContext from './private/CitationWindowContext';
 
@@ -31,7 +33,11 @@ export default memo(function CitationWindowProvider({ children }: Props) {
   return (
     <CitationWindowContext.Provider value={context}>
       {children}
-      {showingClaim && <CitationWindow onClose={handleClose} text={showingClaim.text} />}
+      {showingClaim && (
+        <FocusTrapZone firstFocusableTarget={'.closeBox'}>
+          <CitationWindow onClose={handleClose} text={showingClaim.text} />
+        </FocusTrapZone>
+      )}
     </CitationWindowContext.Provider>
   );
 });

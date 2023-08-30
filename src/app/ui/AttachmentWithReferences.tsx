@@ -114,7 +114,7 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
         }}
         onClick={handleMarkdownCitationClick}
       />
-      {claims.length && (
+      {claims.length > 0 && (
         <details open className="ref-list">
           <summary className="ref-list__summary">{claims.length} references</summary>
           <References onCitationClick={handleReferencesCitationClick} claims={claims} />
