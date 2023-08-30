@@ -8,12 +8,12 @@ div .mainWindow {
     border: 2px solid black;
     font-family: Calibri, "Helvetica Neue", Arial, "sans-serif";
     padding: 8px;
+    display: flex;
+    flex-direction: column;
 }
 
-div > button {
-    position: absolute;
-    right: 8px;
-    top: 8px;
+div > button.closeBox {
+    align-self: end;
     border-width: 0px;
     background-color: transparent;
     font-size: 2em;
