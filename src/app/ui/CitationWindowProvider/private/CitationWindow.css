@@ -11,6 +11,7 @@ div .mainWindow {
     display: flex;
     flex-direction: column;
     word-wrap: normal;
+    overflow-y: scroll;
 }
 
 div > button.closeBox {
