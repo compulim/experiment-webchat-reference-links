@@ -25,3 +25,13 @@ div > button.closeBox:focus{
     border: 2px solid black;
     border-radius: 2px;
 }
+
+span.contents a {
+    text-decoration: underline;
+}
+span.contents a::before {
+    content: '';
+}
+span.contents a::after {
+    content: '';
+}

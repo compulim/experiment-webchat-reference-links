@@ -20,16 +20,7 @@ const CitationWindow = ({ text, onClose }: Props) => {
     () =>
       css({
         '--pva__accent-color': styleOptions.accent,
-        '--pva__external-link-icon': styleOptions.markdownExternalLinkIconImage,
-        '.pva__generative-answer-markdown__reference': {
-          textDecoration: 'underline'
-        },
-        '.pva__generative-answer-markdown__reference::after': {
-          content: ''
-        },
-        '.pva__generative-answer-markdown__reference::before': {
-          content: ''
-        }
+        '--pva__external-link-icon': styleOptions.markdownExternalLinkIconImage
       }),
     [styleOptions.accent]
   );
