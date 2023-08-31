@@ -74,10 +74,10 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
       return;
     }
 
-    // <button data-webchat-citation-href="ms-pva-citation:cite-1">1</button>
+    // <button data-webchat-citation-href="cite:1">1</button>
     const href = buttonElement.dataset.webchatCitationHref;
 
-    if (!href || getURLProtocol(href) !== 'ms-pva-citation:') {
+    if (!href || getURLProtocol(href) !== 'cite:') {
       return;
     }
 
