@@ -1,0 +1,29 @@
+.pva-web-chat__provenance-decorator {
+  align-items: center;
+  display: flex;
+  /* These are the fonts used in Web Chat default style options. */
+  font-family: Calibri, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 80%;
+  gap: 4px;
+  padding-left: 4px;
+  padding-top: 5px;
+}
+
+.pva-web-chat__provenance-decorator__link {
+  color: var(--pva__semantic-colors__link);
+  text-decoration: none;
+}
+
+.pva-web-chat__provenance-decorator__link:hover {
+  color: var(--pva__semantic-colors__link-hovered);
+}
+
+.pva-web-chat__provenance-decorator__link-hint {
+  color: transparent;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 1px;
+}

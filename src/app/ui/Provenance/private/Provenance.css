@@ -1,14 +1,6 @@
 .pva-web-chat__provenance {
-  align-items: center;
-  display: flex;
-}
-
-.pva-web-chat__provenance__stamp {
-  color: #767676;
+  color: var(--pva__accent-color);
   font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
   font-size: 80%;
-}
-
-.pva-web-chat__provenance__body {
-  color: var(--pva__accent-color);
+  padding-top: 5px;
 }
