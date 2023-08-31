@@ -1,4 +1,6 @@
+import { useMemo } from 'react';
 import { hooks } from 'botframework-webchat';
+import { css } from '@emotion/css';
 
 import renderMarkdownAsHTML from '../../private/renderMarkdownAsHTML';
 
@@ -13,6 +15,25 @@ const { useLocalizer, useStyleOptions } = hooks;
 
 const CitationWindow = ({ text, onClose }: Props) => {
   const [styleOptions] = useStyleOptions();
+
+  const citationWindowOverrides = useMemo(
+    () =>
+      css({
+        '--pva__accent-color': styleOptions.accent,
+        '--pva__external-link-icon': styleOptions.markdownExternalLinkIconImage,
+        '.pva__generative-answer-markdown__reference': {
+          textDecoration: 'underline'
+        },
+        '.pva__generative-answer-markdown__reference::after': {
+          content: ''
+        },
+        '.pva__generative-answer-markdown__reference::before': {
+          content: ''
+        }
+      }),
+    [styleOptions.accent]
+  );
+
   const localize = useLocalizer();
 
   const externalLinkAlt = localize('MARKDOWN_EXTERNAL_LINK_ALT');
@@ -23,9 +44,9 @@ const CitationWindow = ({ text, onClose }: Props) => {
         &times;
       </button>
       <span
-        className="contents"
+        className={['contents', citationWindowOverrides].join(' ')}
         dangerouslySetInnerHTML={{
-          __html: renderMarkdownAsHTML(text || '', styleOptions, { externalLinkAlt })
+          __html: renderMarkdownAsHTML(text ?? '', styleOptions, { externalLinkAlt })
         }}
       />
     </div>
