@@ -12,7 +12,7 @@ import AttachmentWithReferences from './AttachmentWithReferences';
 import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvider';
 
 import { type PropsOf } from '../types/PropsOf';
-import provenanceActivityStatusMiddleware from './Provenance/activityStatusMiddleware';
+import createActivityStatusMiddleware from './Provenance/activityStatusMiddleware';
 
 const { BasicWebChat, Composer } = Components;
 const { useStyleOptions } = hooks;
@@ -107,11 +107,13 @@ export default memo(function Chat({ activity }: Props) {
       };
   }, []);
 
+  const activityStatusMiddleware = useMemo(createActivityStatusMiddleware, []);
+
   return (
     <div className="chat">
       <Composer
         // activityMiddleware={activityMiddleware}
-        activityStatusMiddleware={provenanceActivityStatusMiddleware}
+        activityStatusMiddleware={activityStatusMiddleware}
         attachmentMiddleware={attachmentMiddleware}
         directLine={directLine}
         store={store}

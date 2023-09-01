@@ -7,7 +7,8 @@ import { type PropsOf } from '../../types/PropsOf';
 type WebChatProps = PropsOf<typeof ReactWebChat>;
 type ActivityStatusMiddleware = Exclude<WebChatProps['activityStatusMiddleware'], undefined>;
 
-const provenanceActivityStatusMiddleware: ActivityStatusMiddleware =
+const createActivityStatusMiddleware: () => ActivityStatusMiddleware =
+  () =>
   () =>
   next =>
   (...args) => {
@@ -17,4 +18,4 @@ const provenanceActivityStatusMiddleware: ActivityStatusMiddleware =
     return <ActivityStatus activity={activity}>{original}</ActivityStatus>;
   };
 
-export default provenanceActivityStatusMiddleware;
+export default createActivityStatusMiddleware;
