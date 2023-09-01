@@ -2,8 +2,6 @@ import { useMemo } from 'react';
 import { hooks } from 'botframework-webchat';
 import { css } from '@emotion/css';
 
-import renderMarkdownAsHTML from '../../private/renderMarkdownAsHTML';
-
 import './CitationWindow.css';
 
 type Props = {
@@ -11,10 +9,11 @@ type Props = {
   onClose: () => void;
 };
 
-const { useLocalizer, useStyleOptions } = hooks;
+const { useLocalizer, useRenderMarkdownAsHTML, useStyleOptions } = hooks;
 
 const CitationWindow = ({ text, onClose }: Props) => {
   const [styleOptions] = useStyleOptions();
+  const renderMarkdownAsHTML = useRenderMarkdownAsHTML();
 
   const citationWindowOverrides = useMemo(
     () =>

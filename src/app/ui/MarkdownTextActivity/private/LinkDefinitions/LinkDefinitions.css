@@ -1,4 +1,31 @@
 .webchat__link-definitions {
+  margin: 0 10px 10px;
+}
+
+.webchat__link-definitions[open] .webchat__link-definitions__header::after {
+  transform: rotate(0deg);
+}
+
+.webchat__link-definitions__header {
+  color: #616161;
+  font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
+  font-size: 80%;
+  list-style: none;
+}
+
+.webchat__link-definitions__header::after {
+  background-image: var(--pva__accordion-chevron--down);
+  content: '';
+  display: inline-block;
+  height: 1em;
+  margin: 0 2px 2px;
+  transform: rotate(180deg);
+  vertical-align: middle;
+  width: 1em;
+  zoom: 150%;
+}
+
+.webchat__link-definitions__body {
   display: flex;
   flex-direction: column;
   gap: 4px;

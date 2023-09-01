@@ -1,21 +1,21 @@
-import './AttachmentWithReferences.css';
+import './MarkdownTextActivity.css';
 
 import { Fragment, memo, type MouseEventHandler, type PropsWithChildren, useCallback, useMemo } from 'react';
 import { hooks } from 'botframework-webchat';
 import classNames from 'classnames';
 
-import { type Claim, isClaim, hasText } from '../types/SchemaOrg/Claim';
-import { type Entity, isEntity } from '../types/SchemaOrg/Entity';
-import getClaimsFromMarkdown from '../utils/getClaimsFromMarkdown';
-import getURLProtocol from '../utils/getURLProtocol';
-
-import useShowCitationWindow from './CitationWindowProvider/useShowCitationWindow';
+import { type Claim, isClaim, hasText } from '../../types/SchemaOrg/Claim';
+import { type Entity, isEntity } from '../../types/SchemaOrg/Entity';
+import getClaimsFromMarkdown from './private/getClaimsFromMarkdown';
+import getURLProtocol from '../../utils/getURLProtocol';
+import isHTMLButtonElement from './private/LinkDefinitions/private/isHTMLButtonElement';
+import LinkDefinitions from '../MarkdownTextActivity/private/LinkDefinitions/LinkDefinitions';
 import renderMarkdownAsHTML from './private/renderMarkdownAsHTML';
-import LinkDefinitions from './MarkdownTextActivity/private/LinkDefinitions/LinkDefinitions';
+import useShowCitationWindow from '../CitationWindowProvider/useShowCitationWindow';
 
-import type { ItemTypeOfArray } from '../types/ItemTypeOfArray';
-import type { PropsOf } from '../types/PropsOf';
-import type { WebChatActivity } from 'botframework-webchat-core';
+import { type ItemTypeOfArray } from '../../types/ItemTypeOfArray';
+import { type PropsOf } from '../../types/PropsOf';
+import { type WebChatActivity } from 'botframework-webchat-core';
 
 const { useLocalizer, useStyleOptions, useStyleSet } = hooks;
 
@@ -34,13 +34,9 @@ type Props = PropsWithChildren<{
     );
 }>;
 
-type ReferencesProps = PropsOf<typeof LinkDefinitions>['onCitationClick'];
+type OnCitationClick = PropsOf<typeof LinkDefinitions>['onCitationClick'];
 
-function isButtonElement(button: HTMLElement): button is HTMLButtonElement {
-  return button.matches('button');
-}
-
-export default memo(function AttachmentWithReferences({ activity }: Props) {
+const MarkdownTextActivity = memo(({ activity }: Props) => {
   const { text } = activity;
   const entities = (activity.entities || []) as Array<Entity | WebChatEntity>;
   const showCitationWindow = useShowCitationWindow();
@@ -66,7 +62,7 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
   const handleMarkdownCitationClick = useCallback<MouseEventHandler<HTMLDivElement>>(({ target }) => {
     // Find out what <button> is being clicked.
     const targetElement = target as HTMLElement;
-    const buttonElement: HTMLButtonElement | undefined = isButtonElement(targetElement)
+    const buttonElement: HTMLButtonElement | undefined = isHTMLButtonElement(targetElement)
       ? targetElement
       : (targetElement.closest('button') as HTMLButtonElement | undefined);
 
@@ -89,10 +85,8 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
   }, []);
 
   // Handles all clicks on citation in the reference list.
-  const handleReferencesCitationClick = useCallback<Exclude<ReferencesProps, undefined>>(
-    claim => {
-      showCitationWindow(claim);
-    },
+  const handleReferencesCitationClick = useCallback<Exclude<OnCitationClick, undefined>>(
+    claim => showCitationWindow(claim),
     [showCitationWindow]
   );
 
@@ -108,19 +102,17 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
   return (
     <Fragment>
       <div
-        className={classNames('pva__generative-answer__text', 'markdown', textContentStyleSet + '')}
+        className={classNames('webchat__bot-markdown-text-activity', 'markdown', textContentStyleSet + '')}
         dangerouslySetInnerHTML={{
           __html: renderMarkdownAsHTML(activity.text || '', styleOptions, { externalLinkAlt })
         }}
         onClick={handleMarkdownCitationClick}
       />
-      {/* TODO: Move the accordion to <References> */}
-      {claims.length > 0 && (
-        <details open className="pva__generative-answer-markdown__accordion">
-          <summary className="pva__generative-answer-markdown__accordion__header">{claims.length} references</summary>
-          <LinkDefinitions onCitationClick={handleReferencesCitationClick} claims={claims} />
-        </details>
-      )}
+      <LinkDefinitions onCitationClick={handleReferencesCitationClick} claims={claims} />
     </Fragment>
   );
 });
+
+MarkdownTextActivity.displayName = 'MarkdownTextActivity';
+
+export default MarkdownTextActivity;

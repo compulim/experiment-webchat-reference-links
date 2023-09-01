@@ -13,11 +13,12 @@ body {
 }
 
 .app {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   height: 100%;
 }
 
 .app__pane {
-  flex: 1;
+  overflow: hidden;
 }

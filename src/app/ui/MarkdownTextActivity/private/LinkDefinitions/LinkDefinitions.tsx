@@ -15,14 +15,19 @@ type Props = {
 
 const LinkDefinitions = memo(({ claims, onCitationClick }: Props) => {
   return (
-    <ul className="webchat__link-definitions">
-      {claims.map(claim => (
-        <li className="webchat__link-definitions__item">
-          {claim.alternateName && <Badge value={claim.alternateName} />}
-          {hasText(claim) ? <CitationItem claim={claim} onClick={onCitationClick} /> : <URLItem claim={claim} />}
-        </li>
-      ))}
-    </ul>
+    claims.length > 0 && (
+      <details open className="webchat__link-definitions">
+        <summary className="webchat__link-definitions__header">{claims.length} references</summary>
+        <ul className="webchat__link-definitions__body">
+          {claims.map(claim => (
+            <li className="webchat__link-definitions__item">
+              {claim.alternateName && <Badge value={claim.alternateName} />}
+              {hasText(claim) ? <CitationItem claim={claim} onClick={onCitationClick} /> : <URLItem claim={claim} />}
+            </li>
+          ))}
+        </ul>
+      </details>
+    )
   );
 });
 

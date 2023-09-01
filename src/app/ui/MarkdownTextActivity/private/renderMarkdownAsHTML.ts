@@ -117,10 +117,7 @@ export default function render(
     .use(iterator, 'url_new_win', 'link_open', (tokens, index) => {
       const token = tokens[+index];
 
-      token.attrSet(
-        'class',
-        'pva__generative-answer-markdown__reference pva__generative-answer-markdown__reference--link'
-      );
+      token.attrSet('class', 'webchat__bot-text-activity__link webchat__bot-text-activity__link--url');
       token.attrSet('rel', 'noopener noreferrer');
       token.attrSet('target', '_blank');
 
@@ -153,10 +150,7 @@ export default function render(
       }
 
       token.tag = 'button';
-      token.attrSet(
-        'class',
-        'pva__generative-answer-markdown__reference pva__generative-answer-markdown__reference--citation'
-      );
+      token.attrSet('class', 'webchat__bot-text-activity__link webchat__bot-text-activity__link--citation');
       token.attrSet('data-webchat-citation-href', href);
       token.attrSet('type', 'button');
 

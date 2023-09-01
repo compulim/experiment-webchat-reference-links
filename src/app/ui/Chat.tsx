@@ -5,12 +5,11 @@ import { Components, createStore, hooks } from 'botframework-webchat';
 import { memo, useEffect, useMemo, useState } from 'react';
 
 // import ActivityWithReferences from './ActivityWithReferences';
+import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvider';
+import createActivityStatusMiddleware from './ActivityStatus/createActivityStatusMiddleware';
 // @ts-expect-error 7016
 import createDirectLineEmulator from '../createDirectLineEmulator';
-
-import createActivityStatusMiddleware from './ActivityStatus/createActivityStatusMiddleware';
-import AttachmentWithReferences from './AttachmentWithReferences';
-import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvider';
+import MarkdownTextActivity from './MarkdownTextActivity/MarkdownTextActivity';
 
 import { type PropsOf } from '../types/PropsOf';
 
@@ -100,7 +99,7 @@ export default memo(function Chat({ activity }: Props) {
           (!activity.textFormat || activity.textFormat === 'markdown') &&
           activity.entities?.find(entity => '@context' in entity)
         ) {
-          return <AttachmentWithReferences activity={activity}>{original}</AttachmentWithReferences>;
+          return <MarkdownTextActivity activity={activity}>{original}</MarkdownTextActivity>;
         }
 
         return original;

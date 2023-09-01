@@ -1,10 +1,11 @@
 // @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
+import onErrorResumeNext from '../../../utils/onErrorResumeNext';
 import stripMarkdown from './stripMarkdown';
 
 // import type { Reference } from '../types/Reference';
-import type { Claim as SchemaOrgClaim } from '../types/SchemaOrg/Claim';
+import type { Claim as SchemaOrgClaim } from '../../../types/SchemaOrg/Claim';
 import type { Definition, LinkReference, Node, Parent, Root, Text } from 'mdast';
 
 function* walk(tree: Parent): Generator<Node> {
@@ -92,7 +93,7 @@ export default function* getClaimsFromMarkdown(
           '@id': id,
           '@type': 'Claim',
           alternateName: textReferenced,
-          name: title || undefined,
+          name: title || onErrorResumeNext(() => new URL(definition.url).host) || definition.url,
           type: 'https://schema.org/Claim',
           url: definition.url
         };
