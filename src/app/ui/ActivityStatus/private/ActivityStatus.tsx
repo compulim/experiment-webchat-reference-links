@@ -2,15 +2,15 @@ import { memo, type PropsWithChildren, type ReactNode, useMemo } from 'react';
 
 import { type WebChatActivity } from 'botframework-webchat-core';
 
-import { isEntity, type Entity } from '../../types/SchemaOrg/Entity';
-import { isPerson, type Person } from '../../types/SchemaOrg/Person';
+import { isEntity, type Entity } from '../../../types/SchemaOrg/Entity';
+import { isPerson, type Person } from '../../../types/SchemaOrg/Person';
 
-import FeedbackDecorator from './private/FeedbackDecorator';
-import Provenance from './private/Provenance';
-import SlottedActivityStatus from './private/SlottedActivityStatus';
+import Feedback from './Feedback/Feedback';
+import Provenance from './Provenance/Provenance';
+import SlottedActivityStatus from './SlottedActivityStatus';
 
-import { type ItemTypeOfArray } from '../../types/ItemTypeOfArray';
-import { isVoteAction, type VoteAction } from '../../types/SchemaOrg/VoteAction';
+import { type ItemTypeOfArray } from '../../../types/ItemTypeOfArray';
+import { isVoteAction, type VoteAction } from '../../../types/SchemaOrg/VoteAction';
 
 type WebChatEntity = ItemTypeOfArray<Exclude<WebChatActivity['entities'], undefined>>;
 
@@ -54,8 +54,7 @@ const ActivityStatus = memo(({ activity, children }: Props) => {
     <SlottedActivityStatus>
       {children}
       {useMemo<ReactNode[]>(
-        () =>
-          [person && <Provenance person={person} />, votes.size && <FeedbackDecorator votes={votes} />].filter(Boolean),
+        () => [person && <Provenance person={person} />, votes.size && <Feedback votes={votes} />].filter(Boolean),
         [person, votes]
       )}
     </SlottedActivityStatus>

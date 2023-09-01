@@ -1,6 +1,6 @@
 import ReactWebChat from 'botframework-webchat';
 
-import ActivityStatus from './activityStatusMiddleware.UI';
+import ActivityStatus from './private/ActivityStatus';
 
 import { type PropsOf } from '../../types/PropsOf';
 

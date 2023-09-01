@@ -2,7 +2,7 @@ import './Provenance.css';
 
 import { memo } from 'react';
 
-import { type Person } from '../../../types/SchemaOrg/Person';
+import { type Person } from '../../../../types/SchemaOrg/Person';
 
 type Props = { person: Person };
 

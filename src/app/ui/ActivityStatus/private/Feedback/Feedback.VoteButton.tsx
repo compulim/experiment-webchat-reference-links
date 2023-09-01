@@ -12,7 +12,7 @@ type Props = {
   vote: Vote;
 };
 
-const FeedbackDecoratorVoteButton = memo(({ onClick, pressed, title, vote }: Props) => {
+const FeedbackVoteButton = memo(({ onClick, pressed, title, vote }: Props) => {
   const onClickRef = useRefFrom(onClick);
   const voteRef = useRefFrom(vote);
 
@@ -28,6 +28,6 @@ const FeedbackDecoratorVoteButton = memo(({ onClick, pressed, title, vote }: Pro
   );
 });
 
-FeedbackDecoratorVoteButton.displayName = 'FeedbackDecoratorVoteButton';
+FeedbackVoteButton.displayName = 'FeedbackVoteButton';
 
-export default FeedbackDecoratorVoteButton;
+export default FeedbackVoteButton;

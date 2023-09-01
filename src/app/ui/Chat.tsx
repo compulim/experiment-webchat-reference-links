@@ -8,11 +8,11 @@ import { memo, useEffect, useMemo, useState } from 'react';
 // @ts-expect-error 7016
 import createDirectLineEmulator from '../createDirectLineEmulator';
 
+import createActivityStatusMiddleware from './ActivityStatus/createActivityStatusMiddleware';
 import AttachmentWithReferences from './AttachmentWithReferences';
 import CitationWindowProvider from './CitationWindowProvider/CitationWindowProvider';
 
 import { type PropsOf } from '../types/PropsOf';
-import createActivityStatusMiddleware from './Provenance/activityStatusMiddleware';
 
 const { BasicWebChat, Composer } = Components;
 const { useStyleOptions } = hooks;
