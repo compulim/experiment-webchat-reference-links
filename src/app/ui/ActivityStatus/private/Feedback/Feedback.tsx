@@ -5,8 +5,8 @@ import FeedbackVoteButton from './Feedback.VoteButton';
 import { type Vote } from './types/Vote';
 
 type Props = PropsWithChildren<{
-  downvoteTooltip?: string;
-  upvoteTooltip?: string;
+  downvoteTooltip: string;
+  upvoteTooltip: string;
   votes: ReadonlySet<Vote>;
 }>;
 

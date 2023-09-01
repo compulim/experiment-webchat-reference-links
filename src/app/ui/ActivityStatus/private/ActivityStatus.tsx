@@ -50,11 +50,17 @@ const ActivityStatus = memo(({ activity, children }: Props) => {
     [entities]
   );
 
+  // TODO: add localized labels for tooltips
+
   return (
     <SlottedActivityStatus>
       {children}
       {useMemo<ReactNode[]>(
-        () => [person && <Originator person={person} />, votes.size && <Feedback votes={votes} />].filter(Boolean),
+        () =>
+          [
+            person && <Originator person={person} />,
+            votes.size && <Feedback votes={votes} downvoteTooltip={'Downvote'} upvoteTooltip={'Upvote'} />
+          ].filter(Boolean),
         [person, votes]
       )}
     </SlottedActivityStatus>
