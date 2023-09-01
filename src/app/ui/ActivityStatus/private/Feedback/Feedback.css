@@ -1,4 +1,4 @@
-.pva-web-chat__activity-status-feedback {
+.web-chat__feedback-activity-status {
   align-items: center;
   display: flex;
   /* These are the fonts used in Web Chat default style options. */
@@ -9,16 +9,16 @@
   padding-top: 5px;
 }
 
-.pva-web-chat__activity-status-feedback__link {
+.web-chat__feedback-activity-status__link {
   color: var(--pva__semantic-colors__link);
   text-decoration: none;
 }
 
-.pva-web-chat__activity-status-feedback__link:hover {
+.web-chat__feedback-activity-status__link:hover {
   color: var(--pva__semantic-colors__link-hovered);
 }
 
-.pva-web-chat__activity-status-feedback__link-hint {
+.web-chat__feedback-activity-status__link-hint {
   color: transparent;
   height: 1px;
   overflow: hidden;

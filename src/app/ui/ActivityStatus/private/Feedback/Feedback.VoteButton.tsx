@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import { useRefFrom } from 'use-ref-from';
 
-import ThumbsButton from './ThumbButton';
+import ThumbsButton from './private/ThumbButton';
 
 import { type Vote } from './types/Vote';
 

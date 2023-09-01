@@ -9,7 +9,7 @@ type Props = { person: Person };
 const Provenance = memo(({ person }: Props) =>
   person.url ? (
     <a
-      className="pva-web-chat__provenance pva-web-chat__provenance--link"
+      className="webchat__provenance-activity-status webchat__provenance-activity-status--link"
       href={person.url}
       rel="noopener noreferrer"
       target="_blank"
@@ -17,7 +17,7 @@ const Provenance = memo(({ person }: Props) =>
       {person.description || person.text}
     </a>
   ) : (
-    <span className="pva-web-chat__provenance">{person.description || person.text}</span>
+    <span className="webchat__provenance-activity-status">{person.description || person.text}</span>
   )
 );
 

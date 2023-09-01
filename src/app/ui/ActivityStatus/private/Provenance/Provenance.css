@@ -1,6 +1,36 @@
-.pva-web-chat__provenance {
+/* .pva-web-chat__provenance {
   color: var(--pva__accent-color);
   font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
   font-size: 80%;
   padding-top: 5px;
+} */
+
+.webchat__provenance-activity-status {
+  align-items: center;
+  display: flex;
+  /* These are the fonts used in Web Chat default style options. */
+  font-family: Calibri, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 80%;
+  gap: 4px;
+  padding-left: 4px;
+  padding-top: 5px;
+}
+
+.webchat__provenance-activity-status--link {
+  color: var(--pva__accent-color);
+  /* color: var(--pva__semantic-colors__link); */
+}
+
+.webchat__provenance-activity-status--link:hover {
+  color: var(--pva__semantic-colors--link-hovered);
+}
+
+.webchat__provenance-activity-status--link-hint {
+  color: transparent;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  white-space: nowrap;
+  width: 1px;
 }
