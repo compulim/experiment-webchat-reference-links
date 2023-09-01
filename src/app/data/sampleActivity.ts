@@ -2,17 +2,19 @@ export default {
   conversation: { id: 'c-00001' },
   from: { id: 'bot' },
   type: 'message',
-  text: `Sure, you should override the default proxy settings[1]\u200B[2], when your proxy server requires authentication[3].
+  text: `Sure, you should override the default proxy settings[1]\u200B[2], when your proxy server requires authentication[3]. Here's a fourth citation[4].
 
 [1]: https://support.microsoft.com/en-us/windows/use-a-proxy-server-in-windows-03096c53-0554-4ffe-b6ab-8b1deee8dae1 "Use a proxy server in Windows"
 [2]: https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/configure-proxy-server-settings "Configure proxy server settings - Windows Server"
 [3]: cite:1 "Introduction Configuring proxy settings is a fundamental aspect..."
+[4]: cite:2 "This citation has no name"
 `,
   entities: [
     {
       '@context': 'https://schema.org/',
       '@id': 'cite:1',
       '@type': 'Claim',
+      name: 'Sample Citation From File',
       type: 'https://schema.org/Claim',
 
       text: `Aute Lorem id laboris Lorem do dolor mollit. Officia dolore dolor do culpa nostrud velit officia magna ut aute pariatur excepteur ut cupidatat. Minim minim sunt enim pariatur incididunt eiusmod esse adipisicing do do nulla consequat minim. Exercitation enim adipisicing esse non pariatur duis deserunt eu magna enim amet irure veniam. Minim labore aliquip velit exercitation Lorem exercitation minim excepteur.
@@ -73,6 +75,13 @@ While configuring PAD proxy settings, you may encounter some common challenges:
 
 Configuring Proxy Auto-Discovery (PAD) proxy settings is a vital task for network administrators seeking to streamline the proxy configuration process and enhance network security. By automating the discovery and configuration of proxy servers, PAD ensures efficiency, consistency, and scalability in network environments. However, it is essential to follow the recommended steps carefully and be prepared to troubleshoot common challenges to maintain a smooth proxy configuration process. Ultimately, a well-configured PAD proxy setup contributes to a more secure, efficient, and user-friendly network environment.
 `
+    },
+    {
+      '@context': 'https://schema.org/',
+      '@id': 'cite:2',
+      '@type': 'Claim',
+      type: 'https://schema.org/Claim',
+      text: 'Here is some plain text without any Markdown formatting in it.'
     },
     {
       '@id': 'ms-bf-channel-account-id:bot',

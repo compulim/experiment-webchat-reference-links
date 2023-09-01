@@ -1,6 +1,7 @@
 import { memo, type MouseEventHandler, useCallback } from 'react';
 
 import { type Claim } from '../../../../../types/SchemaOrg/Claim';
+import stripMarkdown from '../../stripMarkdown';
 
 // Citation is claim with text.
 type CitationClaim = Claim & { text: string };
@@ -17,7 +18,10 @@ const CitationLinkDefinition = memo(({ onClick, claim }: Props) => {
 
   return (
     <button className="webchat__link-definitions__item-body--citation" onClick={handleClick} type="button">
-      {claim.name}
+      {claim.name ??
+        stripMarkdown(claim.text)
+          .replace(/\r\n/gu, ' ')
+          .replace(/\s{2,}/gu, ' ')}
     </button>
   );
 });

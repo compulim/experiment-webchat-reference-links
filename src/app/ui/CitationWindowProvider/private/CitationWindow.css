@@ -71,4 +71,16 @@ span.contents a::after {
   float: right;
   padding: 0;
   right: 0;
+  max-height: 1.5em;
+}
+
+.webchat__popover__header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.webchat__popover__title {
+  max-width: calc(100% - 32px);
 }

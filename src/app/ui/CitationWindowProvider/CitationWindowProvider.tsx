@@ -26,7 +26,7 @@ export default memo(function CitationWindowProvider({ children }: Props) {
   return (
     <CitationWindowContext.Provider value={context}>
       {children}
-      {showingClaim && <CitationWindow onClose={handleClose} text={showingClaim.text} />}
+      {showingClaim && <CitationWindow onClose={handleClose} text={showingClaim.text} title={showingClaim.name} />}
     </CitationWindowContext.Provider>
   );
 });

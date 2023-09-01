@@ -9,12 +9,13 @@ import './CitationWindow.css';
 
 type Props = {
   text: string;
+  title?: string;
   onClose: () => void;
 };
 
 const { useLocalizer, useRenderMarkdownAsHTML, useStyleOptions } = hooks;
 
-const CitationWindow = ({ text, onClose: handleClose }: Props) => {
+const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
   const [styleOptions] = useStyleOptions();
   const renderMarkdownAsHTML = useRenderMarkdownAsHTML();
 
@@ -34,13 +35,17 @@ const CitationWindow = ({ text, onClose: handleClose }: Props) => {
   return (
     <div className="mainWindow webchat__popover">
       <FocusTrapZone className="webchat__popover__box" firstFocusableTarget={'.closeBox'}>
-        <button
-          aria-label={'TODO: XXX close citation window XXX'}
-          className="webchat__popover__close-button"
-          onClick={handleClose}
-        >
-          <Dismiss16Regular />
-        </button>
+        <span className="webchat__popover__header">
+          <button
+            aria-label={'TODO: XXX close citation window XXX'}
+            className="webchat__popover__close-button"
+            onClick={handleClose}
+          >
+            <Dismiss16Regular />
+          </button>
+          {title && <h2 className="webchat__popover__title">{title}</h2>}
+        </span>
+
         <span
           className={['contents', citationWindowOverrides].join(' ')}
           dangerouslySetInnerHTML={{

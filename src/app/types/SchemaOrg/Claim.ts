@@ -10,6 +10,9 @@ export type Claim = Entity & {
   /* The textual content of this CreativeWork. */
   text?: string;
 
+  /* Optional name given to this item */
+  name?: string;
+
   /* URL of the item. */
   url?: string;
 };
@@ -23,4 +26,8 @@ export function isClaim(entity: Entity): entity is Claim {
 
 export function hasText(claim: Claim): claim is Claim & { text: string } {
   return !!claim.text;
+}
+
+export function hasName(claim: Claim): claim is Claim & { name: string } {
+  return !!claim.name;
 }

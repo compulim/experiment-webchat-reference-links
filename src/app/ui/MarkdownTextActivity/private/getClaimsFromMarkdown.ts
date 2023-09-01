@@ -3,7 +3,6 @@ import { fromMarkdown } from 'mdast-util-from-markdown';
 
 import getURLProtocol from './getURLProtocol';
 import onErrorResumeNext from '../../../utils/onErrorResumeNext';
-import stripMarkdown from './stripMarkdown';
 
 // import type { Reference } from '../types/Reference';
 import type { Claim as SchemaOrgClaim } from '../../../types/SchemaOrg/Claim';
@@ -74,10 +73,7 @@ export default function* getClaimsFromMarkdown(
         if (claim) {
           yield {
             ...claim,
-            alternateName: textReferenced,
-            name: stripMarkdown(claim.text)
-              .replace(/\r\n/gu, ' ')
-              .replace(/\s{2,}/gu, ' ')
+            alternateName: textReferenced
           };
         }
       } else {
