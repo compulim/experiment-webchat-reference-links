@@ -1,4 +1,4 @@
-import { Fragment, memo, type PropsWithChildren, useCallback, useState, useEffect, useRef } from 'react';
+import { memo, type PropsWithChildren, useCallback, useState, useEffect, useRef } from 'react';
 
 import FeedbackVoteButton from './Feedback.VoteButton';
 
@@ -40,19 +40,15 @@ const Feedback = memo(({ downvoteTooltip, upvoteTooltip, votes }: Props) => {
     }
   }, [feedbackPayloadRef, postFeedback, value]);
 
-  return (
-    <Fragment>
-      {Array.from(votes).map(vote => (
-        <FeedbackVoteButton
-          key={vote}
-          onClick={handleChange}
-          pressed={value === vote}
-          title={vote === 'downvote' ? downvoteTooltip : vote === 'upvote' ? upvoteTooltip : undefined}
-          vote={vote}
-        />
-      ))}
-    </Fragment>
-  );
+  return Array.from(votes).map(vote => (
+    <FeedbackVoteButton
+      key={vote}
+      onClick={handleChange}
+      pressed={value === vote}
+      title={vote === 'downvote' ? downvoteTooltip : vote === 'upvote' ? upvoteTooltip : undefined}
+      vote={vote}
+    />
+  ));
 });
 
 Feedback.displayName = 'ActivityStatusFeedback';
