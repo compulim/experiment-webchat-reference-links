@@ -11,7 +11,7 @@ import getURLProtocol from '../utils/getURLProtocol';
 
 import useShowCitationWindow from './CitationWindowProvider/useShowCitationWindow';
 import renderMarkdownAsHTML from './private/renderMarkdownAsHTML';
-import References from './References/References';
+import LinkDefinitions from './MarkdownTextActivity/private/LinkDefinitions/LinkDefinitions';
 
 import type { ItemTypeOfArray } from '../types/ItemTypeOfArray';
 import type { PropsOf } from '../types/PropsOf';
@@ -34,7 +34,7 @@ type Props = PropsWithChildren<{
     );
 }>;
 
-type ReferencesProps = PropsOf<typeof References>['onCitationClick'];
+type ReferencesProps = PropsOf<typeof LinkDefinitions>['onCitationClick'];
 
 function isButtonElement(button: HTMLElement): button is HTMLButtonElement {
   return button.matches('button');
@@ -118,7 +118,7 @@ export default memo(function AttachmentWithReferences({ activity }: Props) {
       {claims.length > 0 && (
         <details open className="pva__generative-answer-markdown__accordion">
           <summary className="pva__generative-answer-markdown__accordion__header">{claims.length} references</summary>
-          <References onCitationClick={handleReferencesCitationClick} claims={claims} />
+          <LinkDefinitions onCitationClick={handleReferencesCitationClick} claims={claims} />
         </details>
       )}
     </Fragment>
