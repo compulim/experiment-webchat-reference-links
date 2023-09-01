@@ -5,7 +5,7 @@
   padding-top: 5px;
 } */
 
-.webchat__provenance-activity-status {
+.webchat__originator-activity-status {
   align-items: center;
   /* These are the fonts used in Web Chat default style options. */
   font-family: Calibri, 'Helvetica Neue', Arial, sans-serif;
@@ -13,16 +13,16 @@
   padding-top: 5px;
 }
 
-.webchat__provenance-activity-status--link {
+.webchat__originator-activity-status--link {
   color: var(--pva__accent-color);
   /* color: var(--pva__semantic-colors__link); */
 }
 
-.webchat__provenance-activity-status--link:hover {
+.webchat__originator-activity-status--link:hover {
   color: var(--pva__semantic-colors--link-hovered);
 }
 
-.webchat__provenance-activity-status--link-hint {
+.webchat__originator-activity-status--link-hint {
   color: transparent;
   height: 1px;
   overflow: hidden;

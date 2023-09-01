@@ -1,4 +1,4 @@
-.pva-web-chat__thumbs-button {
+.webchat__thumb-button {
   appearance: none;
   background: Transparent;
   border: 0;
@@ -12,49 +12,49 @@
   width: 16px;
 }
 
-.pva-web-chat__thumbs-button:active {
+.webchat__thumb-button:active {
   background: var(--pva__palette__neutral-light);
 }
 
-.pva-web-chat__thumbs-button:focus-visible {
+.webchat__thumb-button:focus-visible {
   /* TODO: Verify with designer. This was #767676 (Gray ~120), this is now #8A8886 (Gray 110). */
 
   outline: solid 1px var(--pva__palette__neutral-secondary-alt);
 }
 
-.pva-web-chat__thumbs-button__image {
+.webchat__thumb-button__image {
   /* TODO: Remove "color" if we want a different hover color. */
   color: var(--pva__semantic-colors__link);
   width: 14px;
 }
 
-.pva-web-chat__thumbs-button:hover
-  .pva-web-chat__thumbs-button__image:not(.pva-web-chat__thumbs-button__image--is-filled) {
+.webchat__thumb-button:hover
+  .webchat__thumb-button__image:not(.webchat__thumb-button__image--is-filled) {
   display: none;
 }
 
-.pva-web-chat__thumbs-button--is-pressed
-  .pva-web-chat__thumbs-button__image:not(.pva-web-chat__thumbs-button__image--is-filled) {
+.webchat__thumb-button--is-pressed
+  .webchat__thumb-button__image:not(.webchat__thumb-button__image--is-filled) {
   display: none;
 }
 
-.pva-web-chat__thumbs-button:not(:hover):not(.pva-web-chat__thumbs-button--is-pressed)
-  .pva-web-chat__thumbs-button__image--is-filled {
+.webchat__thumb-button:not(:hover):not(.webchat__thumb-button--is-pressed)
+  .webchat__thumb-button__image--is-filled {
   display: none;
 }
 
 /* TODO: We are commenting it out until designer confirm about the new palette. */
 
 /*
-.pva-web-chat__thumbs-button--is-pressed .pva-web-chat__thumbs-button__image--is-filled {
+.webchat__thumb-button--is-pressed .webchat__thumb-button__image--is-filled {
   color: var(--pva__palette__theme-primary);
 }
 
-.pva-web-chat__thumbs-button__image:not(.pva-web-chat__thumbs-button__image--is-filled) {
+.webchat__thumb-button__image:not(.webchat__thumb-button__image--is-filled) {
   color: #6e6e6e;
 }
 
-.pva-web-chat__thumbs-button__image--is-filled {
+.webchat__thumb-button__image--is-filled {
   /* TODO: Verify with designer. This was #C8C8C8, this is now #C8C6C4 (Gray 60). *-/
   color: var(--pva__palette__neutral-tertiary-alt);
 }

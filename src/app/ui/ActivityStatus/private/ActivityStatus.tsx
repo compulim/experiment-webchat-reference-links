@@ -6,7 +6,7 @@ import { isEntity, type Entity } from '../../../types/SchemaOrg/Entity';
 import { isPerson, type Person } from '../../../types/SchemaOrg/Person';
 
 import Feedback from './Feedback/Feedback';
-import Provenance from './Provenance/Provenance';
+import Originator from './Originator/Originator';
 import SlottedActivityStatus from './SlottedActivityStatus';
 
 import { type ItemTypeOfArray } from '../../../types/ItemTypeOfArray';
@@ -54,7 +54,7 @@ const ActivityStatus = memo(({ activity, children }: Props) => {
     <SlottedActivityStatus>
       {children}
       {useMemo<ReactNode[]>(
-        () => [person && <Provenance person={person} />, votes.size && <Feedback votes={votes} />].filter(Boolean),
+        () => [person && <Originator person={person} />, votes.size && <Feedback votes={votes} />].filter(Boolean),
         [person, votes]
       )}
     </SlottedActivityStatus>

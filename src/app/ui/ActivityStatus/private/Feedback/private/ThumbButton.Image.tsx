@@ -4,12 +4,10 @@
 
 import { memo } from 'react';
 
-import {
-  ThumbDislike16Filled,
-  ThumbDislike16Regular,
-  ThumbLike16Filled,
-  ThumbLike16Regular
-} from '@fluentui/react-icons';
+import ThumbDislike16Filled from './icons/ThumbDislike16Filled';
+import ThumbDislike16Regular from './icons/ThumbDislike16Regular';
+import ThumbLike16Filled from './icons/ThumbLike16Filled';
+import ThumbLike16Regular from './icons/ThumbLike16Regular';
 
 type Props = {
   className?: string;
@@ -17,7 +15,7 @@ type Props = {
   filled?: boolean;
 };
 
-const ThumbImage = memo(({ className, direction, filled = false }: Props) =>
+const ThumbButtonImage = memo(({ className, direction, filled = false }: Props) =>
   direction === 'down' ? (
     filled ? (
       <ThumbDislike16Filled className={className} />
@@ -31,6 +29,6 @@ const ThumbImage = memo(({ className, direction, filled = false }: Props) =>
   )
 );
 
-ThumbImage.displayName = 'ThumbImage';
+ThumbButtonImage.displayName = 'ThumbButtonImage';
 
-export default ThumbImage;
+export default ThumbButtonImage;

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { type Claim, isClaim, hasText } from '../../types/SchemaOrg/Claim';
 import { type Entity, isEntity } from '../../types/SchemaOrg/Entity';
 import getClaimsFromMarkdown from './private/getClaimsFromMarkdown';
-import getURLProtocol from '../../utils/getURLProtocol';
+import getURLProtocol from './private/getURLProtocol';
 import isHTMLButtonElement from './private/LinkDefinitions/private/isHTMLButtonElement';
 import LinkDefinitions from '../MarkdownTextActivity/private/LinkDefinitions/LinkDefinitions';
 import renderMarkdownAsHTML from './private/renderMarkdownAsHTML';

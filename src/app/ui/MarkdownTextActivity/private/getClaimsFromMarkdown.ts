@@ -1,6 +1,7 @@
 // @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
+import getURLProtocol from './getURLProtocol';
 import onErrorResumeNext from '../../../utils/onErrorResumeNext';
 import stripMarkdown from './stripMarkdown';
 
@@ -48,14 +49,6 @@ function getDefinition(root: Root, identifier: string): Definition | undefined {
     (topLevelNode: Node): topLevelNode is Definition =>
       isDefinition(topLevelNode) && topLevelNode.identifier === identifier
   );
-}
-
-function getURLProtocol(url: string): string | undefined {
-  try {
-    return new URL(url).protocol;
-  } catch (error) {
-    // Return undefined.
-  }
 }
 
 export default function* getClaimsFromMarkdown(

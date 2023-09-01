@@ -16,22 +16,22 @@ type Props = {
   title?: string;
 };
 
-const ThumbsButton = memo(({ direction, onClick, pressed, title }: Props) => (
+const ThumbButton = memo(({ direction, onClick, pressed, title }: Props) => (
   <button
     aria-pressed={pressed}
-    className={classNames('pva-web-chat__thumbs-button', { 'pva-web-chat__thumbs-button--is-pressed': pressed })}
+    className={classNames('webchat__thumb-button', { 'webchat__thumb-button--is-pressed': pressed })}
     onClick={onClick}
     title={title}
     aria-label={title}
     type="button"
   >
     <ThumbButtonImage
-      className={classNames('pva-web-chat__thumbs-button__image pva-web-chat__thumbs-button__image--is-down')}
+      className={classNames('webchat__thumb-button__image webchat__thumb-button__image--is-down')}
       direction={direction}
     />
     <ThumbButtonImage
       className={classNames(
-        'pva-web-chat__thumbs-button__image pva-web-chat__thumbs-button__image--is-down pva-web-chat__thumbs-button__image--is-filled'
+        'webchat__thumb-button__image webchat__thumb-button__image--is-down webchat__thumb-button__image--is-filled'
       )}
       direction={direction}
       filled={true}
@@ -39,6 +39,6 @@ const ThumbsButton = memo(({ direction, onClick, pressed, title }: Props) => (
   </button>
 ));
 
-ThumbsButton.displayName = 'ThumbsButton';
+ThumbButton.displayName = 'ThumbButton';
 
-export default ThumbsButton;
+export default ThumbButton;
