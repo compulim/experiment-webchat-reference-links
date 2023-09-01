@@ -4,8 +4,8 @@ import { memo, useMemo } from 'react';
 
 import ActivityInput from './ActivityInput';
 import Chat from './Chat';
-import useAppReducer from '../data/useAppReducer';
 import onErrorResumeNext from '../utils/onErrorResumeNext';
+import useAppReducer from '../data/useAppReducer';
 
 export default memo(function App() {
   const [{ activityJSON }, { setActivityJSON }] = useAppReducer();

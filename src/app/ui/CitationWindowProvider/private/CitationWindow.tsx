@@ -1,6 +1,9 @@
-import { useMemo } from 'react';
-import { hooks } from 'botframework-webchat';
 import { css } from '@emotion/css';
+import { FocusTrapZone } from '@fluentui/react/lib/FocusTrapZone';
+import { hooks } from 'botframework-webchat';
+import { useMemo } from 'react';
+
+import Dismiss16Regular from './Dismiss16Regular';
 
 import './CitationWindow.css';
 
@@ -11,7 +14,7 @@ type Props = {
 
 const { useLocalizer, useRenderMarkdownAsHTML, useStyleOptions } = hooks;
 
-const CitationWindow = ({ text, onClose }: Props) => {
+const CitationWindow = ({ text, onClose: handleClose }: Props) => {
   const [styleOptions] = useStyleOptions();
   const renderMarkdownAsHTML = useRenderMarkdownAsHTML();
 
@@ -29,16 +32,22 @@ const CitationWindow = ({ text, onClose }: Props) => {
   const externalLinkAlt = localize('MARKDOWN_EXTERNAL_LINK_ALT');
 
   return (
-    <div className="mainWindow">
-      <button className="closeBox" onClick={onClose} tabIndex={0} aria-label={'close citation window'}>
-        &times;
-      </button>
-      <span
-        className={['contents', citationWindowOverrides].join(' ')}
-        dangerouslySetInnerHTML={{
-          __html: renderMarkdownAsHTML(text ?? '', styleOptions, { externalLinkAlt })
-        }}
-      />
+    <div className="mainWindow webchat__popover">
+      <FocusTrapZone className="webchat__popover__box" firstFocusableTarget={'.closeBox'}>
+        <button
+          aria-label={'TODO: XXX close citation window XXX'}
+          className="webchat__popover__close-button"
+          onClick={handleClose}
+        >
+          <Dismiss16Regular />
+        </button>
+        <span
+          className={['contents', citationWindowOverrides].join(' ')}
+          dangerouslySetInnerHTML={{
+            __html: renderMarkdownAsHTML(text ?? '', styleOptions, { externalLinkAlt })
+          }}
+        />
+      </FocusTrapZone>
     </div>
   );
 };

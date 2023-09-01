@@ -1,41 +1,74 @@
-div .mainWindow {
-    position: absolute;
-    top: 32px;
-    left: 32px;
-    bottom: 32px;
-    right: 32px;
-    background-color: #ffffff;
-    border: 0.5px solid black;
-    border-radius: 4px;
-    box-shadow: 8px 8px 8px rgba(0.5, 0.5, 0.5, 0.5);
-    font-family: Calibri, "Helvetica Neue", Arial, "sans-serif";
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    word-wrap: normal;
-    overflow-y: scroll;
+xdiv .mainWindow {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  bottom: 32px;
+  right: 32px;
+  background-color: #ffffff;
+  border: 0.5px solid black;
+  border-radius: 4px;
+  box-shadow: 8px 8px 8px rgba(0.5, 0.5, 0.5, 0.5);
+  font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  word-wrap: normal;
+  overflow-y: scroll;
 }
 
 div > button.closeBox {
-    align-self: end;
-    border-width: 0px;
-    background-color: transparent;
-    font-size: 1.5em;
-    max-height: 1.25em;
-    min-width: 1em;
+  align-self: end;
+  border-width: 0px;
+  background-color: transparent;
+  font-size: 1.5em;
+  max-height: 1.25em;
+  min-width: 1em;
 }
 
-div > button.closeBox:focus{
-    border: 2px solid black;
-    border-radius: 8px;
+div > button.closeBox:focus {
+  border: 2px solid black;
+  border-radius: 8px;
 }
 
 span.contents a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 span.contents a::before {
-    content: '';
+  content: '';
 }
 span.contents a::after {
-    content: '';
+  content: '';
+}
+
+.webchat__popover {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.webchat__popover__box {
+  background-color: White;
+  border-radius: 4px;
+  box-shadow:
+    0 6.4px 14.4px 0 #00000021,
+    0 1.2px 3.6px 0 #0000001a;
+  box-sizing: border-box;
+  font-family: Calibri, 'Helvetica Neue', Arial, 'sans-serif';
+  height: calc(100% - 20px);
+  margin: 10px;
+  overflow-y: auto;
+  padding: 16px;
+  top: 0;
+  width: calc(100% - 20px);
+}
+
+.webchat__popover__close-button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  float: right;
+  padding: 0;
+  right: 0;
 }
