@@ -22,6 +22,7 @@ const ThumbsButton = memo(({ direction, onClick, pressed, title }: Props) => (
     className={classNames('pva-web-chat__thumbs-button', { 'pva-web-chat__thumbs-button--is-pressed': pressed })}
     onClick={onClick}
     title={title}
+    aria-label={title}
     type="button"
   >
     <ThumbButtonImage

@@ -1,11 +1,13 @@
 div .mainWindow {
     position: absolute;
-    top: 8px;
-    left: 8px;
-    width: calc(100% - 32px);
-    height: calc(100% - 32px);
+    top: 32px;
+    left: 32px;
+    bottom: 32px;
+    right: 32px;
     background-color: #ffffff;
-    border: 2px solid black;
+    border: 0.5px solid black;
+    border-radius: 4px;
+    box-shadow: 8px 8px 8px rgba(0.5, 0.5, 0.5, 0.5);
     font-family: Calibri, "Helvetica Neue", Arial, "sans-serif";
     padding: 8px;
     display: flex;
@@ -18,12 +20,14 @@ div > button.closeBox {
     align-self: end;
     border-width: 0px;
     background-color: transparent;
-    font-size: 2em;
+    font-size: 1.5em;
+    max-height: 1.25em;
+    min-width: 1em;
 }
 
 div > button.closeBox:focus{
     border: 2px solid black;
-    border-radius: 2px;
+    border-radius: 8px;
 }
 
 span.contents a {

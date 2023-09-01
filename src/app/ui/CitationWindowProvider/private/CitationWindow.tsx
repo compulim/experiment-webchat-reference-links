@@ -30,7 +30,7 @@ const CitationWindow = ({ text, onClose }: Props) => {
 
   return (
     <div className="mainWindow">
-      <button className="closeBox" onClick={onClose} tabIndex={0}>
+      <button className="closeBox" onClick={onClose} tabIndex={0} aria-label={'close citation window'}>
         &times;
       </button>
       <span
