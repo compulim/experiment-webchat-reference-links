@@ -24,8 +24,8 @@
 
 .webchat__thumb-button__image {
   /* TODO: Remove "color" if we want a different hover color. */
-  color: var(--pva__semantic-colors__link);
-  width: 14px;
+  color:  var(--pva__semantic-colors__link);
+  width: 16px;
 }
 
 .webchat__thumb-button:hover

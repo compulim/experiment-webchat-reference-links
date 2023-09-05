@@ -29,7 +29,8 @@ const _Chat = memo(function () {
     () =>
       css({
         '--pva__accent-color': accent,
-        '--pva__external-link-icon': markdownExternalLinkIconImage
+        '--pva__external-link-icon': markdownExternalLinkIconImage,
+        '--pva__semantic-colors__link': accent
       }),
     [accent]
   );
