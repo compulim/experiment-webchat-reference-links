@@ -1,8 +1,8 @@
 // @ts-expect-error ts(1479) think we are CJS, we are actually ESM.
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
-import getURLProtocol from './getURLProtocol';
 import onErrorResumeNext from '../../../utils/onErrorResumeNext';
+import stripMarkdown from './stripMarkdown';
 
 // import type { Reference } from '../types/Reference';
 import type { Claim as SchemaOrgClaim } from '../../../types/SchemaOrg/Claim';
@@ -65,23 +65,27 @@ export default function* getClaimsFromMarkdown(
       }
 
       const { identifier: id, title, url } = definition;
-      const textReferenced = node.children.find<Text>((node): node is Text => node.type === 'text')?.value || '';
+      const getTextReferenced = () =>
+        node.children.find<Text>((node): node is Text => node.type === 'text')?.value || '';
 
-      if (getURLProtocol(url) === 'cite:') {
-        const claim = claimsWithText.get(url);
+      const claim = claimsWithText.get(url);
 
-        if (claim) {
-          yield {
-            ...claim,
-            alternateName: textReferenced
-          };
-        }
+      if (claim) {
+        yield {
+          alternateName: getTextReferenced(),
+          name:
+            claim.name ||
+            stripMarkdown(claim.text)
+              .replace(/\r\n/gu, ' ')
+              .replace(/\s{2,}/gu, ' '),
+          ...claim
+        };
       } else {
         yield {
           '@context': 'https://schema.org/',
           '@id': id,
           '@type': 'Claim',
-          alternateName: textReferenced,
+          alternateName: getTextReferenced(),
           name: title || onErrorResumeNext(() => new URL(definition.url).host) || definition.url,
           type: 'https://schema.org/Claim',
           url: definition.url

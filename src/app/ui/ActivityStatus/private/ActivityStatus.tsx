@@ -2,8 +2,8 @@ import { memo, type PropsWithChildren, type ReactNode, useMemo } from 'react';
 
 import { type WebChatActivity } from 'botframework-webchat-core';
 
-import { isEntity, type Entity } from '../../../types/SchemaOrg/Entity';
-import { isPerson, type Person } from '../../../types/SchemaOrg/Person';
+import { isReplyAction, type ReplyAction } from '../../../types/SchemaOrg/ReplyAction';
+import { isThing, type Thing } from '../../../types/SchemaOrg/Thing';
 
 import Feedback from './Feedback/Feedback';
 import Originator from './Originator/Originator';
@@ -28,11 +28,10 @@ function isUpvoteAction(voteAction: VoteAction): voteAction is UpvoteAction {
 type Props = PropsWithChildren<{ activity: WebChatActivity }>;
 
 const ActivityStatus = memo(({ activity, children }: Props) => {
-  const entities = (activity.entities || []) as Array<Entity | WebChatEntity>;
+  const entities = (activity.entities || []) as Array<Thing | WebChatEntity>;
 
-  const person = entities.find<Person>(
-    (entity): entity is Person =>
-      isEntity(entity) && isPerson(entity) && entity['@id'] === `ms-bf-channel-account-id:${activity.from.id}`
+  const replyAction = entities.find<ReplyAction>(
+    (entity): entity is ReplyAction => isThing(entity) && isReplyAction(entity)
   );
 
   const votes = useMemo(
@@ -42,7 +41,7 @@ const ActivityStatus = memo(({ activity, children }: Props) => {
           entities
             .filter<DownvoteAction | UpvoteAction>(
               (entity): entity is DownvoteAction | UpvoteAction =>
-                isEntity(entity) && isVoteAction(entity) && (isDownvoteAction(entity) || isUpvoteAction(entity))
+                isThing(entity) && isVoteAction(entity) && (isDownvoteAction(entity) || isUpvoteAction(entity))
             )
             .map(({ actionOption }) => actionOption)
         )
@@ -58,10 +57,10 @@ const ActivityStatus = memo(({ activity, children }: Props) => {
       {useMemo<ReactNode[]>(
         () =>
           [
-            person && <Originator person={person} />,
+            replyAction && <Originator replyAction={replyAction} />,
             votes.size && <Feedback votes={votes} downvoteTooltip={'Downvote'} upvoteTooltip={'Upvote'} />
           ].filter(Boolean),
-        [person, votes]
+        [replyAction, votes]
       )}
     </SlottedActivityStatus>
   );

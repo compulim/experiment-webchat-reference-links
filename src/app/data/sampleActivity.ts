@@ -84,14 +84,17 @@ Configuring Proxy Auto-Discovery (PAD) proxy settings is a vital task for networ
       text: 'Here is some plain text without any Markdown formatting in it.'
     },
     {
-      '@id': 'ms-bf-channel-account-id:bot',
       '@context': 'https://schema.org/',
-      '@type': 'Person',
-      type: 'https://schema.org/Person',
+      '@type': 'ReplyAction',
+      type: 'https://schema.org/ReplyAction',
 
       description: 'Surfaced by Azure OpenAI',
-      text: 'Azure OpenAI',
-      url: 'https://www.microsoft.com/en-us/ai/responsible-ai'
+      provider: {
+        '@type': 'Project',
+
+        name: 'Azure OpenAI',
+        url: 'https://www.microsoft.com/en-us/ai/responsible-ai'
+      }
     },
     {
       '@context': 'https://schema.org/',

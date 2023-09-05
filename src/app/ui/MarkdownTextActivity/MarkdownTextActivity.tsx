@@ -5,7 +5,7 @@ import { hooks } from 'botframework-webchat';
 import classNames from 'classnames';
 
 import { type Claim, isClaim, hasText } from '../../types/SchemaOrg/Claim';
-import { type Entity, isEntity } from '../../types/SchemaOrg/Entity';
+import { type Thing, isThing } from '../../types/SchemaOrg/Thing';
 import getClaimsFromMarkdown from './private/getClaimsFromMarkdown';
 import getURLProtocol from './private/getURLProtocol';
 import isHTMLButtonElement from './private/LinkDefinitions/private/isHTMLButtonElement';
@@ -38,7 +38,7 @@ type OnCitationClick = PropsOf<typeof LinkDefinitions>['onCitationClick'];
 
 const MarkdownTextActivity = memo(({ activity }: Props) => {
   const { text } = activity;
-  const entities = (activity.entities || []) as Array<Entity | WebChatEntity>;
+  const entities = (activity.entities || []) as Array<Thing | WebChatEntity>;
   const showCitationWindow = useShowCitationWindow();
 
   // Citations are claim with text.
@@ -46,7 +46,7 @@ const MarkdownTextActivity = memo(({ activity }: Props) => {
   const citationMap = useMemo<Map<string, Claim & { text: string }>>(
     () =>
       entities.reduce<Map<string, Claim & { text: string }>>((citationMap, entity) => {
-        if (isEntity(entity) && isClaim(entity) && hasText(entity) && entity['@id']) {
+        if (isThing(entity) && isClaim(entity) && hasText(entity) && entity['@id']) {
           return citationMap.set(entity['@id'], entity);
         }
 

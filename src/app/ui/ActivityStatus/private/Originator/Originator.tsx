@@ -2,24 +2,26 @@ import './Originator.css';
 
 import { memo } from 'react';
 
-import { type Person } from '../../../../types/SchemaOrg/Person';
+import { type ReplyAction } from '../../../../types/SchemaOrg/ReplyAction';
 
-type Props = { person: Person };
+type Props = { replyAction: ReplyAction };
 
-const Originator = memo(({ person }: Props) =>
-  person.url ? (
+const Originator = memo(({ replyAction }: Props) => {
+  const text = replyAction.description || replyAction.provider?.name;
+
+  return replyAction.provider?.url ? (
     <a
       className="webchat__originator-activity-status webchat__originator-activity-status--link"
-      href={person.url}
+      href={replyAction.provider?.url}
       rel="noopener noreferrer"
       target="_blank"
     >
-      {person.description || person.text}
+      {text}
     </a>
   ) : (
-    <span className="webchat__originator-activity-status">{person.description || person.text}</span>
-  )
-);
+    <span className="webchat__originator-activity-status">{text}</span>
+  );
+});
 
 Originator.displayName = 'Originator';
 
