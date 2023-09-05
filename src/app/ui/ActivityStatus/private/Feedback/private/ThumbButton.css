@@ -15,16 +15,16 @@
   background: var(--pva__palette__neutral-light);
 }
 
-.webchat__thumb-button:focus-visible {
+.webchat__thumb-button:focus {
   /* TODO: Verify with designer. This was #767676 (Gray ~120), this is now #8A8886 (Gray 110). */
 
-  outline: solid 1px var(--pva__palette__neutral-secondary-alt);
+  border: solid 1px var(--pva__palette__neutral-secondary-alt);
 }
 
 .webchat__thumb-button__image {
   /* TODO: Remove "color" if we want a different hover color. */
-  color:  var(--pva__semantic-colors__link);
-  width: 16px;
+  color: var(--pva__semantic-colors__link);
+  width: 14px;
 }
 
 .webchat__thumb-button:hover
