@@ -25,9 +25,9 @@
 
 .pva__generative-answer-markdown__external-icon {
   -webkit-mask-image: var(--pva__external-link-icon);
-  background-color: var(--pva__accent-color);
-  height: 0.75em;
   mask-image: var(--pva__external-link-icon);
+  background-color: LinkText;  
+  height: 0.75em;
   margin: 0 0.1em;
   width: 0.75em !important; /* Web Chat maximize <img>, we should fix it there */
 }
