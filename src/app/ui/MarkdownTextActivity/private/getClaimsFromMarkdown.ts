@@ -82,7 +82,7 @@ export default function* getClaimsFromMarkdown(
         };
       } else {
         yield {
-          '@context': 'https://schema.org/',
+          '@context': 'https://schema.org',
           '@id': id,
           '@type': 'Claim',
           alternateName: getTextReferenced(),
