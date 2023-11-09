@@ -16,6 +16,22 @@ type Props = {
 };
 
 const { useLocalizer, useRenderMarkdownAsHTML, useStyleOptions } = hooks;
+const domParser = new DOMParser();
+
+// return true if parsing this string returns anything with a non-text HTML node in it
+function isHTML(text: string): boolean {
+  // DOMParser is safe; even if it finds potentially dangerous objects, it doesn't run them, just parses them.
+  // They'll get sanitized out in a future step before rendering.
+  const parsed = domParser.parseFromString(text, 'text/html').body.childNodes;
+  // need to use the old-school syntax here for ES version reasons
+  for (let i = 0; i < parsed.length; i++) {
+    const node = parsed[i];
+    if (node.nodeType !== Node.TEXT_NODE) {
+      return true;
+    }
+  }
+  return false;
+}
 
 const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
   const [styleOptions] = useStyleOptions();
@@ -48,9 +64,7 @@ const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
         <span
           className={['contents', citationWindowOverrides].join(' ')}
           dangerouslySetInnerHTML={{
-            __html: text?.trim().startsWith('<')
-              ? sanitize(text)
-              : renderMarkdownAsHTML(text ?? '', styleOptions, { externalLinkAlt })
+            __html: isHTML(text) ? sanitize(text) : renderMarkdownAsHTML(text ?? '', styleOptions, { externalLinkAlt })
           }}
         />
       </FocusTrapZone>
