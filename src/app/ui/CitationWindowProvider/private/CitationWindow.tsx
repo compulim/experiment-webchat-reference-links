@@ -46,7 +46,6 @@ const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
     [styleOptions.accent]
   );
 
-  //text = text.trim();
   const localize = useLocalizer();
 
   const externalLinkAlt = localize('MARKDOWN_EXTERNAL_LINK_ALT');
@@ -55,7 +54,11 @@ const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
     <div className="mainWindow webchat__popover">
       <FocusTrapZone className="webchat__popover__box" firstFocusableTarget={'.closeBox'}>
         <span className="webchat__popover__header">
-          <button aria-label={'close citation window'} className="webchat__popover__close-button" onClick={handleClose}>
+          <button
+            aria-label={localize('KEYBOARD_HELP_CLOSE_BUTTON_ALT')}
+            className="webchat__popover__close-button"
+            onClick={handleClose}
+          >
             <Dismiss16Regular />
           </button>
           {title && <h2 className="webchat__popover__title">{title}</h2>}
