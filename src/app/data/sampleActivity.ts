@@ -20,7 +20,7 @@ export default {
       text: `
 ## Introduction
 
-*Configuring* **proxy** _settings_ __is__ a fundamental aspect of \`network\` and [system administration](http://example.com). Proxies serve as intermediaries between a user's device and the internet, providing various benefits such as improved security, anonymity, and network performance. In this guide, we will delve into the intricacies of configuring Proxy Auto-Discovery (PAD) proxy settings. We'll explore what PAD is, why it's essential, and how to configure it effectively. []
+*Configuring* **proxy** _settings_ __is__ a fundamental aspect of \`network\` and [system administration](http://example.com). Proxies serve as intermediaries between a user's device and the internet, providing various benefits such as improved security, anonymity, and network performance. In this guide, we will delve into the intricacies of configuring Proxy Auto-Discovery (PAD) proxy settings. We'll explore what PAD is, why it's essential, and how to configure it effectively.
 > This is a block quote!
 
 1. first
