@@ -25,6 +25,7 @@
     "botframework-webchat": "4.15.9",
     "botframework-webchat-core": "4.15.9",
     "classnames": "^2.3.2",
+    "dompurify": "3.0.6",
     "markdown-it": "13.0.1",
     "markdown-it-attrs": "4.1.6",
     "markdown-it-attrs-es5": "2.0.2",
@@ -40,6 +41,7 @@
     "use-ref-from": "^0.0.2"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.4.0",

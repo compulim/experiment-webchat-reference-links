@@ -52,8 +52,15 @@ export default {
 <li>list</li>
 <li>items</li>
 </ol>
-
-<script>This isn't allowed!</script>
+<ul>
+<li>Below are some unsafe things that should get sanitized:
+<li><script>This isn't allowed!</script>
+<li><img src="" onerror=alert(1) />
+<li><svg><g/onload=alert(2)//<p>
+<li><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>
+<li><math><mi//xlink:href="data:x,<script>alert(4)</script>
+<li>
+</ul>
 `
     },
     {

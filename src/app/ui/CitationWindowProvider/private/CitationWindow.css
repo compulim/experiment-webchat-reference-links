@@ -16,7 +16,7 @@ xdiv .mainWindow {
   overflow-y: scroll;
 }
 
-div > button.closeBox {
+div>button.closeBox {
   align-self: end;
   border-width: 0px;
   background-color: transparent;
@@ -25,17 +25,23 @@ div > button.closeBox {
   min-width: 1em;
 }
 
-div > button.closeBox:focus {
+div>button.closeBox:focus {
   border: 2px solid black;
   border-radius: 8px;
+}
+
+span.contents {
+  background-color: #ffffff;
 }
 
 span.contents a {
   text-decoration: underline;
 }
+
 span.contents a::before {
   content: '';
 }
+
 span.contents a::after {
   content: '';
 }
