@@ -52,10 +52,14 @@ const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
 
   function annotateLink(link: HTMLAnchorElement) {
     console.log(link);
-    link.ariaLabel = link.ariaLabel ?? externalLinkAlt;
+
+    const icon = document.createElement('img');
+    icon.className = 'webchat__render-markdown__external-link-icon';
+    icon.ariaLabel = link.ariaLabel ?? externalLinkAlt;
     link.rel = 'noopener noreferrer';
     link.target = '_blank';
-    // other link manipulation here
+
+    link.appendChild(icon);
   }
 
   const contents = parseIntoHTML(text);
