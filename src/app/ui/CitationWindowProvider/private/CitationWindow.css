@@ -90,3 +90,7 @@ span.contents a::after {
 .webchat__popover__title {
   max-width: calc(100% - 32px);
 }
+
+.externalLinkIcon {
+  padding-left: 0.25em;
+}
