@@ -51,8 +51,6 @@ const CitationWindow = ({ text, title, onClose: handleClose }: Props) => {
   }
 
   function annotateLink(link: HTMLAnchorElement) {
-    console.log(link);
-
     const icon = document.createElement('img');
     icon.className = 'webchat__render-markdown__external-link-icon externalLinkIcon';
     icon.ariaLabel = link.ariaLabel ?? externalLinkAlt;
