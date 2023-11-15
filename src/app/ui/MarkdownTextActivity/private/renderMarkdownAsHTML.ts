@@ -75,10 +75,6 @@ const MARKDOWN_ATTRS_RIGHT_DELIMITER = '⟭';
 // eslint-disable-next-line require-unicode-regexp
 const MARKDOWN_ATTRS_RIGHT_DELIMITER_PATTERN = new RegExp(MARKDOWN_ATTRS_RIGHT_DELIMITER, 'g');
 
-export function sanitize(text: string) {
-  return sanitizeHTML(text, SANITIZE_HTML_OPTIONS);
-}
-
 export default function render(
   markdown: string,
   { markdownRespectCRLF }: { markdownRespectCRLF: boolean },
