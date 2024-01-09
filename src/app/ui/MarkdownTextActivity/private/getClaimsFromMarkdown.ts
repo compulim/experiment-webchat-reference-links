@@ -54,7 +54,6 @@ export default function* getClaimsFromMarkdown(
   text: string,
   claimsWithText: Map<string, SchemaOrgClaim & { text: string }>
 ): Generator<SchemaOrgClaim> {
-
   text = stripTeamsCitations(text);
   const tree = fromMarkdown(text);
 

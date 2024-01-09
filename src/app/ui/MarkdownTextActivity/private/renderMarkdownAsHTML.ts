@@ -81,7 +81,6 @@ export default function render(
   { markdownRespectCRLF }: { markdownRespectCRLF: boolean },
   { externalLinkAlt = '' }: { externalLinkAlt?: string } = {}
 ): string {
-
   markdown = stripTeamsCitations(markdown);
 
   if (markdownRespectCRLF) {
