@@ -18,3 +18,13 @@ export default function stripMarkdown(markdown: string): string {
 
   return element.textContent || '';
 }
+
+export function stripTeamsCitations(markdown: string): string {
+  // replace Teams-style escaped markdown by stripping balanced backslashes before brackets; e.g. \\[1\\] -> [1]
+
+  //                        v--- first capture group is some number of backslashes
+  //                        v      v--- second capture group is the number inside the brackets
+  //                        v      v   v--- first capture group repeated
+  //                        v      v   v           v--- the value of the second capture group
+  return markdown.replace(/(\\+)\[(\d+)\1\]/giu, `[$2]`);
+}

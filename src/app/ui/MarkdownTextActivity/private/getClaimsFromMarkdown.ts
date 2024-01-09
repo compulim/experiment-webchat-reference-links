@@ -2,7 +2,7 @@
 import { fromMarkdown } from 'mdast-util-from-markdown';
 
 import onErrorResumeNext from '../../../utils/onErrorResumeNext';
-import stripMarkdown from './stripMarkdown';
+import stripMarkdown, { stripTeamsCitations } from './stripMarkdown';
 
 // import type { Reference } from '../types/Reference';
 import type { Claim as SchemaOrgClaim } from '../../../types/SchemaOrg/Claim';
@@ -54,6 +54,8 @@ export default function* getClaimsFromMarkdown(
   text: string,
   claimsWithText: Map<string, SchemaOrgClaim & { text: string }>
 ): Generator<SchemaOrgClaim> {
+
+  text = stripTeamsCitations(text);
   const tree = fromMarkdown(text);
 
   for (const node of walk(tree)) {
