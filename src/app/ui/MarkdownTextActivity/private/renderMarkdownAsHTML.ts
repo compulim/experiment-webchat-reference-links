@@ -8,6 +8,7 @@ import MarkdownIt from 'markdown-it';
 import markdownItAttrs from 'markdown-it-attrs-es5';
 // @ts-expect-error no typings
 import sanitizeHTML from 'sanitize-html';
+import { stripTeamsCitations } from './stripMarkdown';
 
 const SANITIZE_HTML_OPTIONS = {
   allowedAttributes: {
@@ -80,6 +81,8 @@ export default function render(
   { markdownRespectCRLF }: { markdownRespectCRLF: boolean },
   { externalLinkAlt = '' }: { externalLinkAlt?: string } = {}
 ): string {
+  markdown = stripTeamsCitations(markdown);
+
   if (markdownRespectCRLF) {
     markdown = markdown.replace(/\n\r|\r\n/gu, carriageReturn => (carriageReturn === '\n\r' ? '\r\n' : '\n\r'));
   }
